@@ -439,36 +439,62 @@
         <div class="cert-col">
           <h3 class="col-heading reveal">📜 Certifications</h3>
 
-          <div class="cert-card reveal">
+          <div class="cert-card reveal" onclick="openCert('pdf', 'assets/certificates/Power_BI_Workshop.pdf')" style="cursor:pointer">
             <div class="cert-icon">📊</div>
             <div class="cert-details">
               <div class="cert-name">Power BI Workshop</div>
-              <div class="cert-body">Professional Certification</div>
+              <div class="cert-body">OfficeMaster · Nov 2025</div>
             </div>
-            <!-- Uncomment when you add your PDF: 
-            <a href="assets/certificates/powerbi-certificate.pdf" target="_blank" class="cert-view">View</a>
-            -->
+            <span class="cert-view">View ↗</span>
           </div>
 
-          <div class="cert-card reveal delay-1">
+          <div class="cert-card reveal delay-1" onclick="window.open('https://www.oneroadmap.io/skills/excel/certificate/CERT-0190BAE5','_blank')" style="cursor:pointer">
             <div class="cert-icon">📗</div>
             <div class="cert-details">
-              <div class="cert-name">Advanced Excel Certification</div>
-              <div class="cert-body">Professional Certification</div>
+              <div class="cert-name">Excel Certification</div>
+              <div class="cert-body">OneRoadmap · Verified ✓</div>
             </div>
-            <!-- Uncomment when you add your PDF:
-            <a href="assets/certificates/excel-certificate.pdf" target="_blank" class="cert-view">View</a>
-            -->
+            <span class="cert-view">Verify ↗</span>
           </div>
 
-          <div class="cert-card reveal delay-2">
+          <div class="cert-card reveal delay-2" onclick="openCert('pdf', 'assets/certificates/AI_Tool_Workshop.pdf')" style="cursor:pointer">
             <div class="cert-icon">🤖</div>
             <div class="cert-details">
               <div class="cert-name">AI Tools Workshop</div>
-              <div class="cert-body">Professional Certification</div>
+              <div class="cert-body">be10x · Nov 2025</div>
             </div>
+            <span class="cert-view">View ↗</span>
           </div>
 
+          <div class="cert-card reveal delay-3" onclick="window.open('https://www.oneroadmap.io/skills/da/certificate/CERT-8DAB701E','_blank')" style="cursor:pointer">
+            <div class="cert-icon">📈</div>
+            <div class="cert-details">
+              <div class="cert-name">Data Analyst Certification</div>
+              <div class="cert-body">OneRoadmap · Verified ✓</div>
+            </div>
+            <span class="cert-view">Verify ↗</span>
+          </div>
+
+          <div class="cert-card reveal delay-4" onclick="openCert('pdf', 'assets/certificates/Data_Analytics_Skillsetmaster.pdf')" style="cursor:pointer">
+            <div class="cert-icon">🎓</div>
+            <div class="cert-details">
+              <div class="cert-name">Data Analytics Completion</div>
+              <div class="cert-body">Skillsetmaster · Jan 2026</div>
+            </div>
+            <span class="cert-view">View ↗</span>
+          </div>
+
+        </div>
+
+        <!-- CERTIFICATE MODAL -->
+        <div id="certModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px">
+          <div style="background:#111827;border:1px solid rgba(0,212,255,0.3);border-radius:12px;max-width:900px;width:100%;max-height:90vh;overflow:hidden;position:relative">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.07)">
+              <span id="certModalTitle" style="font-weight:600;color:#e8edf7;font-size:0.95rem"></span>
+              <button onclick="closeCert()" style="background:rgba(255,255,255,0.1);border:none;color:#e8edf7;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1.1rem">✕</button>
+            </div>
+            <iframe id="certFrame" src="" style="width:100%;height:75vh;border:none"></iframe>
+          </div>
         </div>
       </div>
     </div>
