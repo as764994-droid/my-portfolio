@@ -304,7 +304,7 @@ if (heroStats) {
 })();
 
 /* ====== 12. CARD TILT ====== */
-document.querySelectorAll('.project-card').forEach(function(card) {
+document.querySelectorAll('.project-card, .skill-card, .cert-card').forEach(function(card) {
   card.style.transformStyle = 'preserve-3d';
   card.style.willChange = 'transform';
   card.addEventListener('mousemove', function(e) {
