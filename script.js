@@ -200,3 +200,26 @@ console.log(`
 ║   💼 linkedin.com/in/ayush-singhfinance ║
 ╚══════════════════════════════════════╝
 `);
+
+// ====== CERTIFICATE MODAL ======
+function openCert(type, path) {
+  const modal = document.getElementById('certModal');
+  const frame = document.getElementById('certFrame');
+  const title = document.getElementById('certModalTitle');
+  frame.src = path;
+  title.textContent = path.split('/').pop().replace(/_/g,' ').replace('.pdf','');
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCert() {
+  const modal = document.getElementById('certModal');
+  modal.style.display = 'none';
+  document.getElementById('certFrame').src = '';
+  document.body.style.overflow = '';
+}
+
+// Close modal when clicking outside
+document.getElementById('certModal').addEventListener('click', function(e) {
+  if (e.target === this) closeCert();
+});
