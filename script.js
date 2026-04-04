@@ -321,4 +321,4 @@ const certModal = document.getElementById('certModal');
 if (certModal) certModal.addEventListener('click', function(e) { if (e.target === this) closeCert(); });
  
 /* ====== 15. CONSOLE EASTER EGG ====== */
-console.log('%c\n Hey Recruiter! Ayush Singh - Data Analyst\n as764994@gmail.com\n linkedin.com/in/ayush-singhfinance\n', 'color:#00d4ff;font-family:monospace;font-size:12px;');
+console.log('%c\n Hey Recruiter! Ayush Singh - Data Analyst\n as764994@gmail.com\n linkedin.com/in/ayush-singh-finance\n', 'color:#00d4ff;font-family:monospace;font-size:12px;');
