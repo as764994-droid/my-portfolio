@@ -987,6 +987,6 @@ if(certModal)certModal.addEventListener('click',function(e){if(e.target===this)w
   document.getElementById('chat-send').addEventListener('click', function() { sendMessage(); });
   input.addEventListener('keydown', function(e) { if (e.key === 'Enter') sendMessage(); });
 
-})();   
-   
+})();
+
 }); // END window.load
