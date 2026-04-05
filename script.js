@@ -438,4 +438,555 @@ window.closeCert = function() {
 const certModal=document.getElementById('certModal');
 if(certModal)certModal.addEventListener('click',function(e){if(e.target===this)window.closeCert();});
 
+/* ====== 19. AI CHATBOT ====== */
+(function() {
+
+  /* ---- KNOWLEDGE BASE ---- */
+  const kb = {
+    name: "Ayush Singh",
+    role: "Data Analyst",
+    location: "Lucknow, Uttar Pradesh, India",
+    email: "as764994@gmail.com",
+    github: "github.com/as764994-droid",
+    linkedin: "linkedin.com/in/ayush-singh-finance",
+    availability: "Immediate joiner — available right now",
+    education: "B.Com in Accounting & Finance from University of Lucknow (2020–2024). Currently enrolled in PW Skills Data Analytics with GenAI program — learning SQL, Python, Power BI, Tableau, and Machine Learning.",
+    about: "Ayush is a Data Analyst from Lucknow, India who specializes in turning raw data into clear business decisions. He has built 6 end-to-end analytics projects across 5 industries — working with datasets ranging from 8,500 to 100,000+ records. He is passionate about building executive-level dashboards and performance trackers.",
+    experience: "6 real-world end-to-end projects across e-commerce, FMCG, food delivery, streaming, and retail. Analyzed 100,000+ records, tracked ₹53M+ in revenue, and built 23+ DAX measures.",
+    tools: {
+      powerbi: "Expert level. Ayush builds production-grade Power BI dashboards with DAX, Power Query, Row-Level Security (RLS), What-If Parameters, Drill-Through, Bookmarks, Custom Tooltips, and Custom Themes. He has built 5-page dashboards designed for VP-level stakeholders.",
+      excel: "Expert level. Advanced Excel including Pivot Tables, PivotCharts, Power Query (150+ lines of M code), Slicers, GETPIVOTDATA, and full dashboard automation. Has eliminated 100% of manual reporting for a national distributor.",
+      sql: "Intermediate level. MySQL — Window Functions (RANK, ROW_NUMBER), CTEs, Subqueries, Data Cleaning, and full EDA pipelines. Built a complete retail SQL analytics project from scratch.",
+      python: "Currently learning Python through the PW Skills program. Comfortable with fundamentals.",
+      dax: "Expert level. 23+ DAX measures built including calculated columns, time intelligence, What-If parameters, and dynamic KPI logic.",
+      tableau: "Currently learning Tableau as part of the PW Skills program.",
+    },
+    projects: {
+      netflix: "Netflix Content Strategy Dashboard — a production-grade 5-page Power BI dashboard analyzing 8,800+ titles across 190+ countries. Built for VP Content, Head of Acquisitions, and CFO personas. Features 23+ DAX measures, What-If investment simulator, Row-Level Security, Drill-Through, and a custom Netflix theme. Key finding: only 26.93% of catalog is fresh content, and US accounts for 43% of compliance-flagged titles.",
+      blinkit: "Blinkit Grocery Sales Dashboard — Power BI dashboard analyzing 8,523 rows of grocery sales data from 2011–2022. Discovered that Tier 3 locations outperform Tier 1 in total sales — a counter-intuitive finding. Fruits & Vegetables is the top revenue driver. Built with KPI cards, outlet analysis, and visibility correlation.",
+      fmcg: "National Distributor Sales Dashboard — enterprise-grade Excel dashboard consolidating 3 years and 100,000+ transactional records with auto-refresh. Eliminated 100% of manual monthly reporting. Built 8 PivotTables, 7 PivotCharts, 8 cross-connected slicers, and 150+ lines of Power Query M code. Validated that promo transactions deliver higher revenue per unit.",
+      swiggy: "Swiggy Sales & Market Analysis — dynamic Excel KPI dashboard analyzing 197,430 orders worth ₹53.01M. Identified a critical 32% Q3 revenue decline and delivered 3 strategic recommendations. Discovered Lucknow ranks #2 nationally, vegetarian orders = 65% of revenue, and Friday–Sunday is peak ordering period.",
+      vrinda: "Vrinda Store Annual Sales Report 2022 — 12-month Excel analysis answering 8 critical business questions. Found that women aged 30–49 in Maharashtra, Karnataka, and UP via Amazon, Flipkart, and Myntra are the highest-value segment. Delivered a precise 2023 marketing strategy.",
+      sql: "Retail Sales Analysis SQL Project — end-to-end MySQL project from database setup and data cleaning to 10 business queries. Used RANK() window function for best-selling month, CTEs for shift analysis, and built a full EDA pipeline — all without any BI tool.",
+    },
+    strengths: "Ayush's biggest strengths are: (1) Business thinking — he doesn't just build charts, he identifies actionable insights like the 32% Q3 Swiggy decline and counter-intuitive Tier 3 dominance in Blinkit. (2) Technical depth — 23+ DAX measures, Power Query automation, SQL window functions. (3) Stakeholder focus — his dashboards are designed for VP and C-suite personas, not just data teams. (4) Speed — immediate joiner, 6 projects already built.",
+    whyhire: "Ayush brings 3 things most freshers don't: real project depth (not toy datasets), business insight (not just charts), and immediate availability. His projects have tracked ₹53M in revenue, analyzed 100K+ records, and eliminated manual reporting entirely. He thinks like a business analyst, not just a data technician.",
+    certifications: "Power BI Workshop (OfficeMaster, Nov 2025), Advanced Excel Certification (OneRoadmap — verified), AI Tools Workshop (be10x, Nov 2025), Data Analyst Certification (OneRoadmap — verified), Data Analytics Completion Certificate (Skillsetmaster, Jan 2026).",
+    salary: "Ayush is open to discussing compensation based on the role and company. He is primarily focused on finding the right opportunity to contribute and grow.",
+    notice: "Immediate joiner. Zero notice period. Can start right away.",
+    domain: "Ayush has worked across 5 industries: Streaming (Netflix), Grocery Retail (Blinkit), FMCG Distribution, Food Delivery (Swiggy), E-commerce Retail (Vrinda Store), and SQL Retail Analytics.",
+  };
+
+  /* ---- INTENT MATCHER ---- */
+  function getResponse(input) {
+    const q = input.toLowerCase().trim();
+
+    // Greetings
+    if (/^(hi|hello|hey|good morning|good afternoon|good evening|namaste|hii|helo)/.test(q))
+      return `Hello! 👋 I'm Ayush's AI assistant. I can tell you everything about his skills, projects, experience, and availability. What would you like to know?`;
+
+    // Who are you / about chatbot
+    if (/who are you|what are you|are you ai|are you real|are you human/.test(q))
+      return `I'm an AI assistant built specifically for Ayush Singh's portfolio. I know everything about his skills, projects, certifications, and career goals. Ask me anything! 🤖`;
+
+    // About Ayush
+    if (/about (ayush|him|yourself)|tell me about|introduce|who is ayush|background/.test(q))
+      return `${kb.about}\n\n📍 Based in ${kb.location}\n📧 ${kb.email}\n🔗 ${kb.linkedin}`;
+
+    // Location
+    if (/location|where.*based|where.*from|where.*live|city/.test(q))
+      return `Ayush is based in ${kb.location}. He is open to remote, hybrid, or relocation opportunities.`;
+
+    // Availability / joining
+    if (/available|join|notice period|when can|start|immediate/.test(q))
+      return `✅ ${kb.availability}. No notice period — he can start on Day 1.`;
+
+    // Education
+    if (/education|degree|college|university|qualification|study|studied|bcom|b\.com/.test(q))
+      return `🎓 ${kb.education}`;
+
+    // Power BI
+    if (/power bi|powerbi/.test(q))
+      return `📊 ${kb.tools.powerbi}`;
+
+    // Excel
+    if (/excel|pivot|spreadsheet/.test(q))
+      return `📗 ${kb.tools.excel}`;
+
+    // SQL
+    if (/sql|mysql|database|query|queries/.test(q))
+      return `🗄️ ${kb.tools.sql}`;
+
+    // Python
+    if (/python/.test(q))
+      return `🐍 ${kb.tools.python}`;
+
+    // DAX
+    if (/dax|power query|m code/.test(q))
+      return `⚡ ${kb.tools.dax}`;
+
+    // All tools / skills
+    if (/skill|tool|tech|know|expertise|proficient|tech stack/.test(q))
+      return `🛠️ Here's Ayush's technical stack:\n\n📊 Power BI — Expert (DAX, Power Query, RLS, What-If)\n📗 Advanced Excel — Expert (Pivot Tables, Power Query, Automation)\n🗄️ SQL/MySQL — Intermediate (Window Functions, CTEs, EDA)\n🐍 Python — Learning\n📈 Tableau — Learning\n\nHis strongest tools are Power BI and Advanced Excel.`;
+
+    // Netflix project
+    if (/netflix/.test(q))
+      return `🎬 ${kb.projects.netflix}`;
+
+    // Blinkit project
+    if (/blinkit|grocery/.test(q))
+      return `🛒 ${kb.projects.blinkit}`;
+
+    // FMCG / distributor project
+    if (/fmcg|distributor|distribution|national/.test(q))
+      return `📦 ${kb.projects.fmcg}`;
+
+    // Swiggy project
+    if (/swiggy|food delivery/.test(q))
+      return `🍔 ${kb.projects.swiggy}`;
+
+    // Vrinda project
+    if (/vrinda|ecommerce|e-commerce|annual sales/.test(q))
+      return `🛍️ ${kb.projects.vrinda}`;
+
+    // SQL project
+    if (/sql project|retail.*sql|sql.*retail/.test(q))
+      return `🗄️ ${kb.projects.sql}`;
+
+    // All projects
+    if (/project|portfolio|work|built|created/.test(q))
+      return `📁 Ayush has built 6 end-to-end projects:\n\n🎬 Netflix Content Strategy Dashboard (Power BI)\n🛒 Blinkit Grocery Sales Dashboard (Power BI)\n📦 National Distributor Dashboard (Excel)\n🍔 Swiggy Sales & Market Analysis (Excel)\n🛍️ Vrinda Store Annual Sales Report (Excel)\n🗄️ Retail Sales SQL Project (MySQL)\n\nWhich one would you like to know more about?`;
+
+    // Best project
+    if (/best project|favourite project|most complex|most impressive/.test(q))
+      return `🏆 Ayush's most complex project is the Netflix Content Strategy Dashboard — a 5-page Power BI report with 23+ DAX measures, Row-Level Security, What-If investment simulator, and a custom Netflix theme. It was designed for VP-level stakeholders including the CFO. You can view it on his GitHub!`;
+
+    // Experience / numbers
+    if (/experience|years|how long|how many/.test(q))
+      return `📊 ${kb.experience}\n\nWhile Ayush is a fresher in terms of formal employment, his project depth rivals 1–2 years of real work experience.`;
+
+    // Certifications
+    if (/certif|certificat/.test(q))
+      return `📜 ${kb.certifications}\n\nAll certificates are viewable directly on the portfolio — click any certificate card to verify!`;
+
+    // Strengths
+    if (/strength|strong|good at|best at|special/.test(q))
+      return `💪 ${kb.strengths}`;
+
+    // Why hire
+    if (/why hire|why should|hire him|recommend|suited|right candidate/.test(q))
+      return `🎯 ${kb.whyhire}`;
+
+    // Salary
+    if (/salary|ctc|compensation|pay|package/.test(q))
+      return `💰 ${kb.salary}`;
+
+    // Domain / industry
+    if (/domain|industry|sector|field/.test(q))
+      return `🏢 ${kb.domain}`;
+
+    // Contact
+    if (/contact|email|reach|hire|connect|linkedin|github/.test(q))
+      return `📬 You can reach Ayush directly:\n\n📧 Email: ${kb.email}\n💼 LinkedIn: ${kb.linkedin}\n🐙 GitHub: ${kb.github}\n\nHe responds quickly and is actively looking for opportunities!`;
+
+    // Thanks
+    if (/thank|thanks|great|awesome|nice|good|helpful|perfect/.test(q))
+      return `You're welcome! 😊 Feel free to ask anything else about Ayush. You can also scroll through the portfolio to see his live projects and certifications!`;
+
+    // Bye
+    if (/bye|goodbye|see you|that's all|that is all/.test(q))
+      return `Thanks for visiting Ayush's portfolio! 🙌 Feel free to reach out to him directly at ${kb.email}. Have a great day!`;
+
+    // Default
+    return `Great question! I'd suggest reaching out to Ayush directly for more details:\n\n📧 ${kb.email}\n💼 ${kb.linkedin}\n\nOr you can ask me about his skills, projects, education, availability, or certifications!`;
+  }
+
+  /* ---- SUGGESTED QUESTIONS ---- */
+  const suggestions = [
+    "Tell me about Ayush",
+    "What are his skills?",
+    "Tell me about the Netflix project",
+    "Is he available to join?",
+    "Why should I hire him?",
+    "What tools does he know?",
+    "How to contact him?",
+  ];
+
+  /* ---- BUILD UI ---- */
+  const style = document.createElement('style');
+  style.textContent = `
+    #chat-toggle {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #00d4ff, #0077aa);
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      z-index: 9999;
+      box-shadow: 0 4px 24px rgba(0,212,255,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: chatPulse 3s infinite;
+    }
+    @keyframes chatPulse {
+      0%,100% { box-shadow: 0 4px 24px rgba(0,212,255,0.5); }
+      50% { box-shadow: 0 4px 40px rgba(0,212,255,0.9); }
+    }
+    #chat-toggle:hover { transform: scale(1.1); }
+    #chat-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: #00ff88;
+      color: #050a15;
+      font-size: 0.55rem;
+      font-weight: 800;
+      padding: 2px 5px;
+      border-radius: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.04em;
+    }
+    #chat-window {
+      position: fixed;
+      bottom: 100px;
+      right: 28px;
+      width: 380px;
+      max-height: 560px;
+      background: #080f1e;
+      border: 1px solid rgba(0,212,255,0.3);
+      border-radius: 16px;
+      overflow: hidden;
+      z-index: 9998;
+      display: none;
+      flex-direction: column;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(0,212,255,0.1);
+      animation: chatSlideIn 0.3s ease;
+    }
+    @keyframes chatSlideIn {
+      from { opacity:0; transform: translateY(20px) scale(0.95); }
+      to { opacity:1; transform: translateY(0) scale(1); }
+    }
+    #chat-header {
+      background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(0,119,170,0.1));
+      border-bottom: 1px solid rgba(0,212,255,0.15);
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .chat-avatar {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #00d4ff, #0077aa);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .chat-header-info { flex: 1; }
+    .chat-header-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #e8edf7;
+    }
+    .chat-header-status {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: #00ff88;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 2px;
+    }
+    .chat-status-dot {
+      width: 6px;
+      height: 6px;
+      background: #00ff88;
+      border-radius: 50%;
+      animation: pulse-anim 2s infinite;
+    }
+    #chat-close {
+      background: rgba(255,255,255,0.08);
+      border: none;
+      color: #8a96b0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #chat-close:hover { background: rgba(255,255,255,0.15); color: #e8edf7; }
+    #chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 320px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,212,255,0.2) transparent;
+    }
+    .chat-msg {
+      display: flex;
+      gap: 8px;
+      animation: msgIn 0.3s ease;
+    }
+    @keyframes msgIn {
+      from { opacity:0; transform: translateY(8px); }
+      to { opacity:1; transform: translateY(0); }
+    }
+    .chat-msg.user { flex-direction: row-reverse; }
+    .msg-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg,#00d4ff,#0077aa);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .chat-msg.user .msg-avatar {
+      background: linear-gradient(135deg,#4444ff,#2222aa);
+    }
+    .msg-bubble {
+      max-width: 82%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      white-space: pre-wrap;
+    }
+    .chat-msg.bot .msg-bubble {
+      background: rgba(0,212,255,0.08);
+      border: 1px solid rgba(0,212,255,0.15);
+      color: #e8edf7;
+      border-top-left-radius: 2px;
+    }
+    .chat-msg.user .msg-bubble {
+      background: linear-gradient(135deg,#00d4ff,#0077aa);
+      color: #050a15;
+      font-weight: 500;
+      border-top-right-radius: 2px;
+    }
+    .typing-bubble {
+      background: rgba(0,212,255,0.08);
+      border: 1px solid rgba(0,212,255,0.15);
+      padding: 12px 16px;
+      border-radius: 12px;
+      border-top-left-radius: 2px;
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+    .typing-dot {
+      width: 7px;
+      height: 7px;
+      background: #00d4ff;
+      border-radius: 50%;
+      animation: typingAnim 1.2s infinite;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingAnim {
+      0%,60%,100% { transform: translateY(0); opacity:0.4; }
+      30% { transform: translateY(-6px); opacity:1; }
+    }
+    #chat-suggestions {
+      padding: 8px 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      background: rgba(0,0,0,0.2);
+    }
+    .sugg-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: #00d4ff;
+      background: rgba(0,212,255,0.07);
+      border: 1px solid rgba(0,212,255,0.2);
+      padding: 4px 10px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .sugg-btn:hover { background: rgba(0,212,255,0.15); border-color: rgba(0,212,255,0.4); }
+    #chat-input-row {
+      display: flex;
+      gap: 8px;
+      padding: 12px 14px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      background: rgba(0,0,0,0.25);
+    }
+    #chat-input {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 9px 13px;
+      color: #e8edf7;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    #chat-input:focus { border-color: rgba(0,212,255,0.4); }
+    #chat-input::placeholder { color: #556070; }
+    #chat-send {
+      background: linear-gradient(135deg,#00d4ff,#0077aa);
+      border: none;
+      border-radius: 8px;
+      width: 38px;
+      height: 38px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      flex-shrink: 0;
+    }
+    #chat-send:hover { transform: scale(1.08); box-shadow: 0 0 16px rgba(0,212,255,0.4); }
+    @media (max-width: 480px) {
+      #chat-window { width: calc(100vw - 32px); right: 16px; }
+      #chat-toggle { right: 16px; bottom: 16px; }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Toggle button
+  const toggle = document.createElement('button');
+  toggle.id = 'chat-toggle';
+  toggle.innerHTML = '🤖<span id="chat-badge">AI</span>';
+  document.body.appendChild(toggle);
+
+  // Chat window
+  const win = document.createElement('div');
+  win.id = 'chat-window';
+  win.innerHTML = `
+    <div id="chat-header">
+      <div class="chat-avatar">🤖</div>
+      <div class="chat-header-info">
+        <div class="chat-header-name">Ayush's AI Assistant</div>
+        <div class="chat-header-status"><span class="chat-status-dot"></span>Online — Ask me anything</div>
+      </div>
+      <button id="chat-close">✕</button>
+    </div>
+    <div id="chat-messages"></div>
+    <div id="chat-suggestions"></div>
+    <div id="chat-input-row">
+      <input id="chat-input" type="text" placeholder="Ask about skills, projects, availability..." maxlength="200" />
+      <button id="chat-send">➤</button>
+    </div>
+  `;
+  document.body.appendChild(win);
+
+  const msgs = document.getElementById('chat-messages');
+  const input = document.getElementById('chat-input');
+  const suggBox = document.getElementById('chat-suggestions');
+  let isOpen = false;
+
+  function addMsg(text, type) {
+    const row = document.createElement('div');
+    row.className = 'chat-msg ' + type;
+    const av = document.createElement('div');
+    av.className = 'msg-avatar';
+    av.textContent = type === 'bot' ? '🤖' : '👤';
+    const bubble = document.createElement('div');
+    bubble.className = 'msg-bubble';
+    bubble.textContent = text;
+    row.appendChild(av);
+    row.appendChild(bubble);
+    msgs.appendChild(row);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function showTyping() {
+    const row = document.createElement('div');
+    row.className = 'chat-msg bot';
+    row.id = 'typing-indicator';
+    const av = document.createElement('div');
+    av.className = 'msg-avatar';
+    av.textContent = '🤖';
+    const bubble = document.createElement('div');
+    bubble.className = 'typing-bubble';
+    bubble.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+    row.appendChild(av);
+    row.appendChild(bubble);
+    msgs.appendChild(row);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function removeTyping() {
+    const t = document.getElementById('typing-indicator');
+    if (t) t.remove();
+  }
+
+  function sendMessage(text) {
+    const q = text || input.value.trim();
+    if (!q) return;
+    input.value = '';
+    addMsg(q, 'user');
+    showTyping();
+    const delay = 600 + Math.random() * 600;
+    setTimeout(function() {
+      removeTyping();
+      addMsg(getResponse(q), 'bot');
+    }, delay);
+  }
+
+  function buildSuggestions() {
+    suggBox.innerHTML = '';
+    suggestions.forEach(function(s) {
+      const btn = document.createElement('button');
+      btn.className = 'sugg-btn';
+      btn.textContent = s;
+      btn.addEventListener('click', function() { sendMessage(s); });
+      suggBox.appendChild(btn);
+    });
+  }
+
+  function openChat() {
+    isOpen = true;
+    win.style.display = 'flex';
+    document.getElementById('chat-badge').style.display = 'none';
+    if (msgs.children.length === 0) {
+      setTimeout(function() {
+        addMsg("👋 Hi! I'm Ayush's AI assistant. I know everything about his skills, projects, and career. What would you like to know?", 'bot');
+        buildSuggestions();
+      }, 300);
+    }
+    setTimeout(function() { input.focus(); }, 400);
+  }
+
+  function closeChat() {
+    isOpen = false;
+    win.style.display = 'none';
+  }
+
+  toggle.addEventListener('click', function() { isOpen ? closeChat() : openChat(); });
+  document.getElementById('chat-close').addEventListener('click', closeChat);
+  document.getElementById('chat-send').addEventListener('click', function() { sendMessage(); });
+  input.addEventListener('keydown', function(e) { if (e.key === 'Enter') sendMessage(); });
+
+})();   
+   
 }); // END window.load
