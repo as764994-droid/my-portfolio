@@ -4,30 +4,54 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ayush Singh — Data Analyst</title>
+
+  <!-- ✅ FIX #9: OG / Meta Tags added for LinkedIn & WhatsApp preview -->
+  <meta name="description" content="Ayush Singh — Data Analyst. Power BI, SQL, Advanced Excel. 7 end-to-end projects across 6 industries." />
+  <meta property="og:title" content="Ayush Singh — Data Analyst Portfolio" />
+  <meta property="og:description" content="7 real-world analytics projects across 6 industries. Power BI · Excel · SQL · DAX." />
+  <meta property="og:image" content="assets/images/profile-photo.jpeg" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ayush Singh — Data Analyst Portfolio" />
+  <meta name="twitter:description" content="7 end-to-end projects · ₹311M+ revenue tracked · Power BI Expert" />
+
+  <!-- ✅ FIX #13: SVG Favicon added — browser tab no longer blank -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23070c1a'/><text y='.9em' font-size='52' font-family='serif' font-weight='900' fill='%2300d4ff' x='8'>AS</text><text y='1em' font-size='20' font-family='serif' font-weight='900' fill='%2300d4ff' x='72'>.</text></svg>" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+
+  <!-- ✅ FIX #4: Theme applied BEFORE paint — no more light/dark flicker -->
+  <script>
+    (function() {
+      var saved = localStorage.getItem('ayush_theme');
+      if (saved === 'light') {
+        document.documentElement.classList.add('pre-light');
+      }
+    })();
+  </script>
   <style>
-  .project-card { position: relative !important; transform-style: flat !important; min-height: 420px !important; }
-  .card-front, .card-back { position: absolute !important; inset: 0 !important; transition: opacity 0.4s ease !important; border-radius: 12px !important; padding: 28px !important; display: flex !important; flex-direction: column !important; }
-  .card-front { opacity: 1 !important; z-index: 2 !important; background: #111827 !important; border: 1px solid rgba(255,255,255,0.07) !important; }
-  .card-back { opacity: 0 !important; z-index: 1 !important; background: linear-gradient(135deg,#0a1a2e,#0d1527) !important; border: 1px solid rgba(0,212,255,0.35) !important; justify-content: space-between !important; }
-  .project-card.flipped .card-front { opacity: 0 !important; z-index: 1 !important; }
-  .project-card.flipped .card-back { opacity: 1 !important; z-index: 2 !important; }
+    html.pre-light body { --bg-primary:#f0f4ff; }
   </style>
+
+  <!-- ✅ FIX #12: Removed duplicate inline <style> block for .project-card —
+       All card styles now live only in style.css. No more triple-definition conflict. -->
 </head>
 <body>
 
-  <!-- ===== NAVIGATION ===== -->
-  <!-- ===== AVAILABILITY BANNER ===== -->
   <!-- ===== SCROLL PROGRESS BAR ===== -->
-  <div id="scroll-progress"></div> 
+  <div id="scroll-progress"></div>
+
+  <!-- ===== AVAILABILITY BANNER ===== -->
   <div id="availability-banner">
     <span class="avail-dot"></span>
     <span class="avail-text">🟢 Open to Work &nbsp;·&nbsp; Data Analyst / Business Analyst &nbsp;·&nbsp; Immediate Joiner &nbsp;·&nbsp; Lucknow / Remote</span>
     <button class="avail-close" id="availClose">✕</button>
   </div>
+
+  <!-- ===== NAVIGATION ===== -->
   <nav id="navbar">
     <div class="nav-inner">
       <a href="#hero" class="nav-logo">AS<span class="dot">.</span></a>
@@ -51,6 +75,8 @@
       <a href="#skills" class="mob-link">Skills</a>
       <a href="#projects" class="mob-link">Projects</a>
       <a href="#education" class="mob-link">Education</a>
+      <a href="#timeline" class="mob-link">Journey</a>
+      <a href="#dashboard" class="mob-link">Live Demo</a>
       <a href="#contact" class="mob-link">Contact</a>
       <a href="resume/Ayush_Singh_Resume.pdf" download class="mob-link cta-mob">Download Resume</a>
     </div>
@@ -68,7 +94,8 @@
       </div>
       <h1 class="hero-name reveal delay-1">Ayush<br /><span class="accent-text">Singh</span></h1>
       <p class="hero-title reveal delay-2">
-        <span class="mono">Data Analyst</span> &mdash; Power BI · Advanced Excel · SQL · Business Analytics
+        <!-- ✅ FIX #7: .mono starts empty — typewriter fills it, no more blank-jump -->
+        <span class="mono"></span> &mdash; Power BI · Advanced Excel · SQL · Business Analytics
       </p>
       <p class="hero-location reveal delay-3">📍 Lucknow, Uttar Pradesh, India</p>
       <div class="hero-stats reveal delay-3">
@@ -139,7 +166,7 @@
     </div>
   </section>
 
-<!-- ===== LEARNING TICKER ===== -->
+  <!-- ===== LEARNING TICKER ===== -->
   <div class="learning-ticker">
     <div class="ticker-label">📚 Currently Learning</div>
     <div class="ticker-track">
@@ -149,14 +176,14 @@
         <span>Machine Learning</span><span class="ticker-dot">·</span>
         <span>Statistics</span><span class="ticker-dot">·</span>
         <span>GenAI Tools</span><span class="ticker-dot">·</span>
-        <span>Pandas & NumPy</span><span class="ticker-dot">·</span>
+        <span>Pandas &amp; NumPy</span><span class="ticker-dot">·</span>
         <span>Scikit-Learn</span><span class="ticker-dot">·</span>
         <span>Python</span><span class="ticker-dot">·</span>
         <span>Tableau</span><span class="ticker-dot">·</span>
         <span>Machine Learning</span><span class="ticker-dot">·</span>
         <span>Statistics</span><span class="ticker-dot">·</span>
         <span>GenAI Tools</span><span class="ticker-dot">·</span>
-        <span>Pandas & NumPy</span><span class="ticker-dot">·</span>
+        <span>Pandas &amp; NumPy</span><span class="ticker-dot">·</span>
         <span>Scikit-Learn</span><span class="ticker-dot">·</span>
       </div>
     </div>
@@ -167,13 +194,11 @@
     <div class="container">
       <div class="section-label reveal">02 — Skills</div>
       <h2 class="section-title centered reveal">Technical Toolkit</h2>
-
       <div class="skills-grid">
-
         <!-- BI & Visualization -->
         <div class="skill-card reveal">
           <div class="skill-card-icon">📊</div>
-          <h3 class="skill-card-title">BI & Visualization</h3>
+          <h3 class="skill-card-title">BI &amp; Visualization</h3>
           <ul class="skill-list">
             <li><span class="skill-name">Power BI</span><span class="skill-tag expert">Expert</span></li>
             <li class="skill-sub">DAX · Power Query · RLS · Drill-Through · What-If · Bookmarks · Custom Tooltips</li>
@@ -182,35 +207,32 @@
             <li><span class="skill-name">Tableau</span><span class="skill-tag learning">Learning</span></li>
           </ul>
         </div>
-
         <!-- Data & Analytics -->
         <div class="skill-card reveal delay-1">
           <div class="skill-card-icon">🔍</div>
-          <h3 class="skill-card-title">Data & Analytics</h3>
+          <h3 class="skill-card-title">Data &amp; Analytics</h3>
           <ul class="skill-list">
             <li><span class="skill-name">SQL — MySQL</span><span class="skill-tag intermediate">Intermediate</span></li>
             <li class="skill-sub">Window Functions · CTEs · Subqueries · EDA · Data Cleaning</li>
             <li><span class="skill-name">Python</span><span class="skill-tag learning">Learning</span></li>
             <li><span class="skill-name">KPI Development</span><span class="skill-tag expert">Expert</span></li>
             <li><span class="skill-name">Time-Series Analysis</span><span class="skill-tag expert">Expert</span></li>
-            <li><span class="skill-name">Data Modeling & ETL</span><span class="skill-tag expert">Expert</span></li>
+            <li><span class="skill-name">Data Modeling &amp; ETL</span><span class="skill-tag expert">Expert</span></li>
             <li><span class="skill-name">Cohort Analysis</span><span class="skill-tag intermediate">Intermediate</span></li>
           </ul>
         </div>
-
         <!-- Domain Knowledge -->
         <div class="skill-card reveal delay-2">
           <div class="skill-card-icon">🏢</div>
           <h3 class="skill-card-title">Domain Knowledge</h3>
           <ul class="skill-list">
             <li><span class="skill-name">E-commerce Analytics</span></li>
-            <li><span class="skill-name">Retail & FMCG Sales</span></li>
+            <li><span class="skill-name">Retail &amp; FMCG Sales</span></li>
             <li><span class="skill-name">Food Delivery Metrics</span></li>
             <li><span class="skill-name">Streaming Content Strategy</span></li>
             <li><span class="skill-name">Financial Statement Analysis</span></li>
           </ul>
         </div>
-
         <!-- Tools -->
         <div class="skill-card reveal delay-3">
           <div class="skill-card-icon">🛠️</div>
@@ -222,7 +244,6 @@
             <li><span class="skill-name">VS Code</span></li>
           </ul>
         </div>
-
       </div>
     </div>
   </section>
@@ -234,6 +255,9 @@
       <h2 class="section-title centered reveal">End-to-End Analytics Projects</h2>
       <p class="section-sub reveal">7 real-world projects · 6 industries · 3 tools</p>
 
+      <!-- ✅ FIX #1: ALL 7 project cards are now INSIDE .projects-grid.
+           Previously Project 7 was placed AFTER the closing </div> of this grid,
+           making it render full-width outside the layout and escape the filter bar. -->
       <div class="projects-grid">
 
         <!-- PROJECT 1 — Netflix -->
@@ -270,7 +294,8 @@
             <span class="feature-tag">Bookmarks</span>
           </div>
           <div class="project-footer">
-            <a href="https://lnkd.in/e-ekidNT" target="_blank" class="project-link">View on GitHub →</a>
+            <!-- ✅ FIX #11: Direct GitHub URL instead of lnkd.in shortlink -->
+            <a href="https://github.com/as764994-droid/netflix-content-strategy-dashboard-powerbi" target="_blank" class="project-link">View on GitHub →</a>
           </div>
         </div>
 
@@ -293,7 +318,7 @@
           </div>
           <div class="project-highlights">
             <div class="highlight-item">🏪 Tier 3 locations = highest overall sales (counter-intuitive)</div>
-            <div class="highlight-item">🥦 Fruits & Vegetables = top revenue driver</div>
+            <div class="highlight-item">🥦 Fruits &amp; Vegetables = top revenue driver</div>
             <div class="highlight-item">⚠️ High-selling items flagged as stockout risks</div>
           </div>
           <div class="project-features">
@@ -302,7 +327,7 @@
             <span class="feature-tag">Visibility Correlation</span>
           </div>
           <div class="project-footer">
-            <a href="https://lnkd.in/gBXQkw5b" target="_blank" class="project-link">View on GitHub →</a>
+            <a href="https://github.com/as764994-droid/blinkit-grocery-sales-performance-dashboard-powerbi" target="_blank" class="project-link">View on GitHub →</a>
           </div>
         </div>
 
@@ -328,7 +353,7 @@
           <div class="project-highlights">
             <div class="highlight-item">⚡ 100% of manual monthly reporting eliminated</div>
             <div class="highlight-item">📈 Promo transactions = higher revenue per unit (validated ROI)</div>
-            <div class="highlight-item">🥛 Yogurt & Milk = majority of revenue</div>
+            <div class="highlight-item">🥛 Yogurt &amp; Milk = majority of revenue</div>
             <div class="highlight-item">🔄 ~150 lines of Power Query M code written</div>
           </div>
           <div class="project-features">
@@ -338,7 +363,7 @@
             <span class="feature-tag">GETPIVOTDATA</span>
           </div>
           <div class="project-footer">
-            <a href="https://lnkd.in/gbcumXRA" target="_blank" class="project-link">View on GitHub →</a>
+            <a href="https://github.com/as764994-droid/national-distributor-sales-dashboard-excel" target="_blank" class="project-link">View on GitHub →</a>
           </div>
         </div>
 
@@ -353,7 +378,7 @@
             </div>
           </div>
           <div class="project-domain-badge">Food Delivery · E-commerce</div>
-          <h3 class="project-title">Swiggy Sales & Market Analysis</h3>
+          <h3 class="project-title">Swiggy Sales &amp; Market Analysis</h3>
           <p class="project-desc">Dynamic KPI dashboard analyzing 197,430 Swiggy orders worth ₹53.01M — identifying a critical 32% Q3 revenue decline and delivering 3 strategic recommendations to stabilize performance.</p>
           <div class="project-metrics">
             <div class="metric"><span class="metric-val">197,430</span><span class="metric-lbl">Orders Analyzed</span></div>
@@ -372,7 +397,7 @@
             <span class="feature-tag">3 Strategic Recommendations</span>
           </div>
           <div class="project-footer">
-            <a href="https://lnkd.in/g8wm3vmA" target="_blank" class="project-link">View on GitHub →</a>
+            <a href="https://github.com/as764994-droid/swiggy-sales-market-analysis-excel" target="_blank" class="project-link">View on GitHub →</a>
           </div>
         </div>
 
@@ -405,7 +430,7 @@
             <span class="feature-tag">Geo Segmentation</span>
           </div>
           <div class="project-footer">
-            <a href="https://lnkd.in/g9viZyqC" target="_blank" class="project-link">View on GitHub →</a>
+            <a href="https://github.com/as764994-droid/vrinda-store-annual-sales-report-excel" target="_blank" class="project-link">View on GitHub →</a>
           </div>
         </div>
 
@@ -439,13 +464,12 @@
             <span class="feature-tag">Full EDA</span>
           </div>
           <div class="project-footer">
-            <a href="https://lnkd.in/gXbrYqPA" target="_blank" class="project-link">View on GitHub →</a>
+            <a href="https://github.com/as764994-droid/retail-sales-analysis-sql" target="_blank" class="project-link">View on GitHub →</a>
           </div>
         </div>
 
-      </div>
-
-      <!-- PROJECT 7 — Credit Risk Capstone -->
+        <!-- ✅ FIX #1: PROJECT 7 is now INSIDE .projects-grid -->
+        <!-- PROJECT 7 — Credit Risk Capstone -->
         <div class="project-card reveal" data-domain="Power BI">
           <div class="project-header">
             <div class="project-number mono">07</div>
@@ -457,7 +481,7 @@
             </div>
           </div>
           <div class="project-domain-badge">Banking · Credit Risk · Financial Services</div>
-          <h3 class="project-title">Credit Risk & Loan Default Analysis</h3>
+          <h3 class="project-title">Credit Risk &amp; Loan Default Analysis</h3>
           <p class="project-desc">Full end-to-end capstone project simulating a real-world credit risk engagement — raw data to a 5-page Power BI dashboard built on 32,407 loan records. Delivered to a panel of CRO, CFO, Loan Committee, and Data Analytics Team personas with 12 stakeholder questions answered.</p>
           <div class="project-metrics">
             <div class="metric"><span class="metric-val">32,407</span><span class="metric-lbl">Loan Records</span></div>
@@ -469,7 +493,7 @@
             <div class="highlight-item">🏦 Grade G loans default at 98.44% vs Grade A at 9.96%</div>
             <div class="highlight-item">📊 Loan-to-income ratio = #1 predictor (Pearson +0.38)</div>
             <div class="highlight-item">💸 ₹77M at-risk portfolio identified for CFO</div>
-            <div class="highlight-item">🎚️ What-If simulator: LTI >30% → default rate jumps to 61.93%</div>
+            <div class="highlight-item">🎚️ What-If simulator: LTI &gt;30% → default rate jumps to 61.93%</div>
           </div>
           <div class="project-features">
             <span class="feature-tag">Excel Cleaning</span>
@@ -480,11 +504,12 @@
             <span class="feature-tag">What-If Parameter</span>
           </div>
           <div class="project-footer">
-            <a href="https://lnkd.in/gQ6Peu7V" target="_blank" class="project-link">View on GitHub →</a>
+            <a href="https://github.com/as764994-droid/credit-risk-loan-default-analysis" target="_blank" class="project-link">View on GitHub →</a>
           </div>
         </div>
 
-      <!-- END PROJECTS GRID — ADD NEW PROJECT CARDS ABOVE THIS LINE -->
+      </div>
+      <!-- END .projects-grid -->
 
     </div>
   </section>
@@ -492,22 +517,20 @@
   <!-- ===== EDUCATION & CERTIFICATIONS ===== -->
   <section id="education">
     <div class="container">
-      <div class="section-label reveal">04 — Education & Certs</div>
+      <div class="section-label reveal">04 — Education &amp; Certs</div>
       <h2 class="section-title centered reveal">Qualifications</h2>
       <div class="edu-certs-grid">
 
         <div class="edu-col">
           <h3 class="col-heading reveal">🎓 Education</h3>
-
           <div class="edu-card reveal">
             <div class="edu-year">2020 – 2024</div>
             <div class="edu-details">
-              <div class="edu-degree">B.Com — Accounting & Finance</div>
+              <div class="edu-degree">B.Com — Accounting &amp; Finance</div>
               <div class="edu-inst">University of Lucknow</div>
               <div class="edu-desc">Core coursework in financial accounting, business analytics, and economics.</div>
             </div>
           </div>
-
           <div class="edu-card reveal delay-1">
             <div class="edu-year ongoing">Ongoing</div>
             <div class="edu-details">
@@ -520,7 +543,6 @@
 
         <div class="cert-col">
           <h3 class="col-heading reveal">📜 Certifications</h3>
-
           <div class="cert-card reveal" onclick="openCert('pdf', 'assets/certificates/Power_BI_Workshop.pdf')" style="cursor:pointer">
             <div class="cert-icon">📊</div>
             <div class="cert-details">
@@ -529,7 +551,6 @@
             </div>
             <span class="cert-view">View ↗</span>
           </div>
-
           <div class="cert-card reveal delay-1" onclick="window.open('https://www.oneroadmap.io/skills/excel/certificate/CERT-0190BAE5','_blank')" style="cursor:pointer">
             <div class="cert-icon">📗</div>
             <div class="cert-details">
@@ -538,7 +559,6 @@
             </div>
             <span class="cert-view">Verify ↗</span>
           </div>
-
           <div class="cert-card reveal delay-2" onclick="openCert('pdf', 'assets/certificates/AI_Tool_Workshop.pdf')" style="cursor:pointer">
             <div class="cert-icon">🤖</div>
             <div class="cert-details">
@@ -547,7 +567,6 @@
             </div>
             <span class="cert-view">View ↗</span>
           </div>
-
           <div class="cert-card reveal delay-3" onclick="window.open('https://www.oneroadmap.io/skills/da/certificate/CERT-8DAB701E','_blank')" style="cursor:pointer">
             <div class="cert-icon">📈</div>
             <div class="cert-details">
@@ -556,7 +575,6 @@
             </div>
             <span class="cert-view">Verify ↗</span>
           </div>
-
           <div class="cert-card reveal delay-4" onclick="openCert('pdf', 'assets/certificates/Data_Analytics_Skillsetmaster.pdf')" style="cursor:pointer">
             <div class="cert-icon">🎓</div>
             <div class="cert-details">
@@ -565,11 +583,10 @@
             </div>
             <span class="cert-view">View ↗</span>
           </div>
-
         </div>
 
         <!-- CERTIFICATE MODAL -->
-        <div id="certModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px">
+        <div id="certModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;padding:20px">
           <div style="background:#111827;border:1px solid rgba(0,212,255,0.3);border-radius:12px;max-width:900px;width:100%;max-height:90vh;overflow:hidden;position:relative">
             <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.07)">
               <span id="certModalTitle" style="font-weight:600;color:#e8edf7;font-size:0.95rem"></span>
@@ -578,159 +595,145 @@
             <iframe id="certFrame" src="" style="width:100%;height:75vh;border:none"></iframe>
           </div>
         </div>
+
       </div>
     </div>
   </section>
 
   <!-- ===== LEARNING TIMELINE ===== -->
-<section id="timeline">
-  <div class="container">
-    <div class="section-label reveal">05 — Journey</div>
-    <h2 class="section-title centered reveal">My Learning <span class="accent-text">Timeline</span></h2>
-    <p class="section-sub reveal">From B.Com student to Data Analyst — the journey so far</p>
-
-    <div class="timeline-wrap">
-
-      <div class="tl-item reveal" data-side="left">
-        <div class="tl-dot"></div>
-        <div class="tl-card">
-          <div class="tl-date">2020</div>
-          <div class="tl-icon">🎓</div>
-          <div class="tl-title">Started B.Com</div>
-          <div class="tl-desc">Enrolled in B.Com Accounting & Finance at University of Lucknow. Discovered passion for numbers and financial data.</div>
+  <section id="timeline">
+    <div class="container">
+      <div class="section-label reveal">05 — Journey</div>
+      <h2 class="section-title centered reveal">My Learning <span class="accent-text">Timeline</span></h2>
+      <p class="section-sub reveal">From B.Com student to Data Analyst — the journey so far</p>
+      <div class="timeline-wrap">
+        <div class="tl-item reveal" data-side="left">
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-date">2020</div>
+            <div class="tl-icon">🎓</div>
+            <div class="tl-title">Started B.Com</div>
+            <div class="tl-desc">Enrolled in B.Com Accounting &amp; Finance at University of Lucknow. Discovered passion for numbers and financial data.</div>
+          </div>
         </div>
-      </div>
-
-      <div class="tl-item reveal delay-1" data-side="right">
-        <div class="tl-dot"></div>
-        <div class="tl-card">
-          <div class="tl-date">2022</div>
-          <div class="tl-icon">📗</div>
-          <div class="tl-title">Mastered Advanced Excel</div>
-          <div class="tl-desc">Learned Pivot Tables, Power Query, GETPIVOTDATA, and dashboard design. Built first analytics project — National Distributor Dashboard with 100K+ records.</div>
-          <div class="tl-tag">Advanced Excel · Power Query</div>
+        <div class="tl-item reveal delay-1" data-side="right">
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-date">2022</div>
+            <div class="tl-icon">📗</div>
+            <div class="tl-title">Mastered Advanced Excel</div>
+            <div class="tl-desc">Learned Pivot Tables, Power Query, GETPIVOTDATA, and dashboard design. Built first analytics project — National Distributor Dashboard with 100K+ records.</div>
+            <div class="tl-tag">Advanced Excel · Power Query</div>
+          </div>
         </div>
-      </div>
-
-      <div class="tl-item reveal delay-2" data-side="left">
-        <div class="tl-dot"></div>
-        <div class="tl-card">
-          <div class="tl-date">2023</div>
-          <div class="tl-icon">📊</div>
-          <div class="tl-title">Entered Power BI</div>
-          <div class="tl-desc">Completed Power BI Workshop. Started building production-grade dashboards with DAX, Power Query, Row-Level Security, and What-If Parameters.</div>
-          <div class="tl-tag">Power BI · DAX · RLS</div>
+        <div class="tl-item reveal delay-2" data-side="left">
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-date">2023</div>
+            <div class="tl-icon">📊</div>
+            <div class="tl-title">Entered Power BI</div>
+            <div class="tl-desc">Completed Power BI Workshop. Started building production-grade dashboards with DAX, Power Query, Row-Level Security, and What-If Parameters.</div>
+            <div class="tl-tag">Power BI · DAX · RLS</div>
+          </div>
         </div>
-      </div>
-
-      <div class="tl-item reveal delay-1" data-side="right">
-        <div class="tl-dot"></div>
-        <div class="tl-card">
-          <div class="tl-date">2024</div>
-          <div class="tl-icon">🏆</div>
-          <div class="tl-title">Completed B.Com · Started Upskilling</div>
-          <div class="tl-desc">Graduated from University of Lucknow. Joined PW Skills Data Analytics with GenAI program. Built Netflix Dashboard — most complex project to date.</div>
-          <div class="tl-tag">SQL · Python · Tableau · GenAI</div>
+        <div class="tl-item reveal delay-1" data-side="right">
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-date">2024</div>
+            <div class="tl-icon">🏆</div>
+            <div class="tl-title">Completed B.Com · Started Upskilling</div>
+            <div class="tl-desc">Graduated from University of Lucknow. Joined PW Skills Data Analytics with GenAI program. Built Netflix Dashboard — most complex project to date.</div>
+            <div class="tl-tag">SQL · Python · Tableau · GenAI</div>
+          </div>
         </div>
-      </div>
-
-      <div class="tl-item reveal delay-2" data-side="left">
-        <div class="tl-dot"></div>
-        <div class="tl-card">
-          <div class="tl-date">2025</div>
-          <div class="tl-icon">🗄️</div>
-          <div class="tl-title">SQL & 6 Projects Complete</div>
-          <div class="tl-desc">Completed SQL Retail Analysis project and Credit Risk Capstone. 7 end-to-end projects across 6 industries. Earned certifications in Power BI, Excel, and AI Tools.</div>
-          <div class="tl-tag">SQL · MySQL · Window Functions</div>
+        <div class="tl-item reveal delay-2" data-side="left">
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-date">2025</div>
+            <div class="tl-icon">🗄️</div>
+            <div class="tl-title">SQL &amp; 6 Projects Complete</div>
+            <div class="tl-desc">Completed SQL Retail Analysis project and Credit Risk Capstone. 7 end-to-end projects across 6 industries. Earned certifications in Power BI, Excel, and AI Tools.</div>
+            <div class="tl-tag">SQL · MySQL · Window Functions</div>
+          </div>
         </div>
-      </div>
-
-      <div class="tl-item reveal delay-1" data-side="right">
-        <div class="tl-dot active-dot"></div>
-        <div class="tl-card active-card">
-          <div class="tl-date">2026 <span class="now-badge">NOW</span></div>
-          <div class="tl-icon">🚀</div>
-          <div class="tl-title">Open to Opportunities</div>
-          <div class="tl-desc">Actively seeking Data Analyst or Business Analyst roles. Immediate joiner. Ready to contribute from day one with real project experience.</div>
-          <div class="tl-tag hiring">✅ Available · Immediate Joiner</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ===== LIVE DASHBOARD MOCKUP ===== -->
-<section id="dashboard">
-  <div class="container">
-    <div class="section-label reveal">06 — Live Demo</div>
-    <h2 class="section-title centered reveal">Power BI <span class="accent-text">Dashboard Simulator</span></h2>
-    <p class="section-sub reveal">A live interactive KPI dashboard — built with pure JavaScript. Click the buttons to switch datasets.</p>
-
-    <div class="dash-wrap reveal">
-      <!-- Dataset Switcher -->
-      <div class="dash-switcher">
-        <button class="dash-btn active" data-set="netflix">Netflix</button>
-        <button class="dash-btn" data-set="blinkit">Blinkit</button>
-        <button class="dash-btn" data-set="swiggy">Swiggy</button>
-        <button class="dash-btn" data-set="distributor">Distributor</button>
-        <button class="dash-btn" data-set="creditrisk">Credit Risk</button>
-      </div>
-
-      <!-- KPI Cards Row -->
-      <div class="dash-kpis" id="dashKpis">
-        <div class="dash-kpi">
-          <div class="dkpi-label" id="kpi1label">Total Titles</div>
-          <div class="dkpi-val" id="kpi1val">8,800+</div>
-          <div class="dkpi-trend up" id="kpi1trend">↑ 26.93% Fresh</div>
-        </div>
-        <div class="dash-kpi">
-          <div class="dkpi-label" id="kpi2label">Countries</div>
-          <div class="dkpi-val" id="kpi2val">190+</div>
-          <div class="dkpi-trend up" id="kpi2trend">↑ 64.68% International</div>
-        </div>
-        <div class="dash-kpi">
-          <div class="dkpi-label" id="kpi3label">Movies vs TV</div>
-          <div class="dkpi-val" id="kpi3val">69.6%</div>
-          <div class="dkpi-trend" id="kpi3trend">30.4% TV Shows</div>
-        </div>
-        <div class="dash-kpi">
-          <div class="dkpi-label" id="kpi4label">Flagged Content</div>
-          <div class="dkpi-val" id="kpi4val">43%</div>
-          <div class="dkpi-trend down" id="kpi4trend">↓ US Compliance Risk</div>
-        </div>
-      </div>
-
-      <!-- Chart Area -->
-      <div class="dash-charts">
-        <div class="dash-chart-card" style="flex:1.4">
-          <div class="dcc-title" id="chart1title">Content by Genre (Top 6)</div>
-          <div class="dash-bars" id="dashBars"></div>
-        </div>
-        <div class="dash-chart-card" style="flex:0.6">
-          <div class="dcc-title" id="chart2title">Content Mix</div>
-          <div class="dash-donut-wrap">
-            <canvas id="donutCanvas" width="160" height="160"></canvas>
-            <div class="donut-legend" id="donutLegend"></div>
+        <div class="tl-item reveal delay-1" data-side="right">
+          <div class="tl-dot active-dot"></div>
+          <div class="tl-card active-card">
+            <div class="tl-date">2026 <span class="now-badge">NOW</span></div>
+            <div class="tl-icon">🚀</div>
+            <div class="tl-title">Open to Opportunities</div>
+            <div class="tl-desc">Actively seeking Data Analyst or Business Analyst roles. Immediate joiner. Ready to contribute from day one with real project experience.</div>
+            <div class="tl-tag hiring">✅ Available · Immediate Joiner</div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Footer Bar -->
-      <div class="dash-footer">
-        <span class="mono" style="color:var(--text-muted);font-size:.72rem">Last Refreshed: <span id="dashTime"></span></span>
-        <span class="mono" style="color:var(--accent);font-size:.72rem">● LIVE SIMULATION</span>
+  <!-- ===== LIVE DASHBOARD MOCKUP ===== -->
+  <section id="dashboard">
+    <div class="container">
+      <div class="section-label reveal">06 — Live Demo</div>
+      <h2 class="section-title centered reveal">Power BI <span class="accent-text">Dashboard Simulator</span></h2>
+      <p class="section-sub reveal">A live interactive KPI dashboard — built with pure JavaScript. Click the buttons to switch datasets.</p>
+      <div class="dash-wrap reveal">
+        <div class="dash-switcher">
+          <button class="dash-btn active" data-set="netflix">Netflix</button>
+          <button class="dash-btn" data-set="blinkit">Blinkit</button>
+          <button class="dash-btn" data-set="swiggy">Swiggy</button>
+          <button class="dash-btn" data-set="distributor">Distributor</button>
+          <button class="dash-btn" data-set="creditrisk">Credit Risk</button>
+        </div>
+        <div class="dash-kpis" id="dashKpis">
+          <div class="dash-kpi">
+            <div class="dkpi-label" id="kpi1label">Total Titles</div>
+            <div class="dkpi-val" id="kpi1val">8,800+</div>
+            <div class="dkpi-trend up" id="kpi1trend">↑ 26.93% Fresh</div>
+          </div>
+          <div class="dash-kpi">
+            <div class="dkpi-label" id="kpi2label">Countries</div>
+            <div class="dkpi-val" id="kpi2val">190+</div>
+            <div class="dkpi-trend up" id="kpi2trend">↑ 64.68% International</div>
+          </div>
+          <div class="dash-kpi">
+            <div class="dkpi-label" id="kpi3label">Movies vs TV</div>
+            <div class="dkpi-val" id="kpi3val">69.6%</div>
+            <div class="dkpi-trend" id="kpi3trend">30.4% TV Shows</div>
+          </div>
+          <div class="dash-kpi">
+            <div class="dkpi-label" id="kpi4label">Flagged Content</div>
+            <div class="dkpi-val" id="kpi4val">43%</div>
+            <div class="dkpi-trend down" id="kpi4trend">↓ US Compliance Risk</div>
+          </div>
+        </div>
+        <div class="dash-charts">
+          <div class="dash-chart-card" style="flex:1.4">
+            <div class="dcc-title" id="chart1title">Content by Genre (Top 6)</div>
+            <div class="dash-bars" id="dashBars"></div>
+          </div>
+          <div class="dash-chart-card" style="flex:0.6">
+            <div class="dcc-title" id="chart2title">Content Mix</div>
+            <div class="dash-donut-wrap">
+              <canvas id="donutCanvas" width="160" height="160"></canvas>
+              <div class="donut-legend" id="donutLegend"></div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-footer">
+          <span class="mono" style="color:var(--text-muted);font-size:.72rem">Last Refreshed: <span id="dashTime"></span></span>
+          <span class="mono" style="color:var(--accent);font-size:.72rem">● LIVE SIMULATION</span>
+        </div>
       </div>
     </div>
-  </div>
-</section>
-<!-- ===== CONTACT ===== -->
+  </section>
+
+  <!-- ===== CONTACT ===== -->
   <section id="contact">
     <div class="container">
-      <div class="section-label reveal">05 — Contact</div>
+      <!-- ✅ FIX #3: Section number corrected from 05 to 07 -->
+      <div class="section-label reveal">07 — Contact</div>
       <h2 class="section-title centered reveal">Let's Work Together</h2>
-      <p class="section-sub reveal">Open to Data Analyst & Business Analyst roles. Immediate joiner.</p>
-
+      <p class="section-sub reveal">Open to Data Analyst &amp; Business Analyst roles. Immediate joiner.</p>
       <div class="contact-grid reveal">
         <a href="mailto:as764994@gmail.com" class="contact-card" style="position:relative;">
           <div class="contact-icon">✉️</div>
@@ -743,13 +746,12 @@
           <div class="contact-label">LinkedIn</div>
           <div class="contact-value">ayush-singh-finance</div>
         </a>
-        <a href="https://lnkd.in/gQ6Peu7V" target="_blank" class="contact-card">
+        <a href="https://github.com/as764994-droid" target="_blank" class="contact-card">
           <div class="contact-icon">🐙</div>
           <div class="contact-label">GitHub</div>
           <div class="contact-value">as764994-droid</div>
         </a>
       </div>
-
       <div class="contact-cta reveal">
         <a href="resume/Ayush_Singh_Resume.pdf" download class="btn-primary large">Download My Resume</a>
       </div>
@@ -761,12 +763,13 @@
     <div class="footer-inner">
       <div class="footer-logo">AS<span class="dot">.</span></div>
       <p class="footer-text">Ayush Singh · Data Analyst · Lucknow, India</p>
-      <p class="footer-copy">Built with HTML · CSS · JavaScript &nbsp;|&nbsp; © 2025 Ayush Singh</p>
+      <!-- ✅ FIX #14: Year updated to 2026 and made dynamic via JS -->
+      <p class="footer-copy">Built with HTML · CSS · JavaScript &nbsp;|&nbsp; © <span id="footerYear">2026</span> Ayush Singh</p>
       <p class="visitor-counter">👁 <span id="visitorCount">0</span> people have viewed this portfolio</p>
     </div>
   </footer>
 
-<!-- ===== PROJECT DEEP DIVE MODAL ===== -->
+  <!-- ===== PROJECT DEEP DIVE MODAL ===== -->
   <div id="projectModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9990;align-items:center;justify-content:center;padding:20px;overflow-y:auto;">
     <div id="projectModalBox" style="background:#0d1427;border:1px solid rgba(0,212,255,0.25);border-radius:16px;max-width:720px;width:100%;max-height:90vh;overflow-y:auto;position:relative;animation:modalIn 0.3s ease;">
       <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 28px;border-bottom:1px solid rgba(255,255,255,0.07);position:sticky;top:0;background:#0d1427;z-index:2;border-radius:16px 16px 0 0;">
@@ -775,7 +778,7 @@
       </div>
       <div id="modalContent" style="padding:28px;"></div>
     </div>
-  </div>  
+  </div>
 
   <script src="script.js"></script>
 </body>
