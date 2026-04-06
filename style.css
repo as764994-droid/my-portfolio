@@ -37,7 +37,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 110px;
 }
 
 body {
@@ -213,7 +213,6 @@ img {
   border: none;
   cursor: pointer;
   padding: 4px;
-  margin-left: auto;
 }
 
 .hamburger span {
@@ -1999,6 +1998,7 @@ body.light-mode .bgrp div[style*="color:#e8edf7"] {
   justify-content: center;
   transition: var(--transition);
   flex-shrink: 0;
+  margin-left: auto;
 }
 
 .theme-toggle:hover {
@@ -2033,3 +2033,57 @@ body.light-mode .bgrp div[style*="color:#e8edf7"] {
   border-color: #00ff88;
   color: #00ff88;
 }
+
+/* ================================================
+   STYLE.CSS ADDITIONS — All fixes applied
+   Paste these at the very bottom of style.css
+   ================================================ */
+
+/* ====== FIX #6: Mobile flip card height fix ======
+   Previously min-height:420px was hardcoded causing
+   card content to overflow on small screens.
+   Now mobile uses padding-bottom trick instead. */
+@media (max-width: 600px) {
+  .project-card {
+    min-height: 0 !important;
+    padding-bottom: 420px !important;
+  }
+}
+
+/* ====== FIX #10: Keyboard focus styles ======
+   Previously no :focus-visible existed on interactive
+   buttons — keyboard users couldn't see focus.
+   Now all interactive buttons have a clear outline. */
+.filter-btn:focus-visible,
+.dash-btn:focus-visible,
+.sugg-btn:focus-visible,
+.cert-card:focus-visible,
+.nav-cta:focus-visible,
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ====== Mobile nav active state ======
+   Previously only .nav-links a got the active class —
+   mobile .mob-link had no active highlight at all. */
+.mob-link.active {
+  color: var(--accent) !important;
+  background: var(--accent-dim) !important;
+}
+
+/* ====== Light mode card-back fix ======
+   Ensure card-back text remains readable in light mode */
+body.light-mode .cb-insight { color: #1a2340; }
+body.light-mode .cb-mval { color: #0055bb; }
+body.light-mode .cb-mlbl { color: #3a4868; }
+body.light-mode .cb-title { color: #0055bb; }
+body.light-mode .cb-domain { color: #3a4868; }
+body.light-mode .cf-title { color: #060c1c; }
+body.light-mode .cf-domain { color: #3a4868; }
+body.light-mode .cf-hint { color: #3a4868; }
+body.light-mode .card-front { background: #ffffff !important; border-color: rgba(0,0,0,0.1) !important; }
+body.light-mode .card-back { background: linear-gradient(135deg,#e8f0ff,#ddeeff) !important; }
+
+.project-card { visibility: hidden; }
