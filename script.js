@@ -719,7 +719,7 @@ if(certModal)certModal.addEventListener('click',function(e){if(e.target===this)w
     @keyframes chatPulse { 0%,100%{box-shadow:0 4px 24px rgba(0,212,255,0.5)}50%{box-shadow:0 4px 40px rgba(0,212,255,0.9)} }
     #chat-toggle:hover { transform:scale(1.1); }
     #chat-badge { position:absolute;top:-4px;right:-4px;background:#00ff88;color:#050a15;font-size:0.55rem;font-weight:800;padding:2px 5px;border-radius:10px;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em; }
-    #chat-window { position:fixed;bottom:100px;right:28px;width:380px;max-height:560px;background:#080f1e;border:1px solid rgba(0,212,255,0.3);border-radius:16px;overflow:hidden;z-index:9998;display:none;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.7),0 0 40px rgba(0,212,255,0.1);animation:chatSlideIn 0.3s ease; }
+    #chat-window { position:fixed;bottom:100px;right:28px;width:380px;max-height:640px;background:#080f1e;border:1px solid rgba(0,212,255,0.3);border-radius:16px;overflow:hidden;z-index:9998;display:none;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.7),0 0 40px rgba(0,212,255,0.1);animation:chatSlideIn 0.3s ease; }
     @keyframes chatSlideIn { from{opacity:0;transform:translateY(20px) scale(0.95)}to{opacity:1;transform:translateY(0) scale(1)} }
     #chat-header { background:linear-gradient(135deg,rgba(0,212,255,0.15),rgba(0,119,170,0.1));border-bottom:1px solid rgba(0,212,255,0.15);padding:16px 18px;display:flex;align-items:center;gap:12px; }
     .chat-avatar { width:40px;height:40px;background:linear-gradient(135deg,#00d4ff,#0077aa);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0; }
