@@ -2094,6 +2094,9 @@ body.light-mode .card-back { background: linear-gradient(135deg,#e8f0ff,#ddeeff)
 .project-card { visibility: hidden; }
 
 /* ====== MOBILE BANNER FIX ====== */
+/* Desktop pe mobile span hide karo */
+.avail-mobile { display: none; }
+
 @media (max-width: 600px) {
   #availability-banner {
     padding: 6px 40px 6px 12px;
@@ -2101,15 +2104,14 @@ body.light-mode .card-back { background: linear-gradient(135deg,#e8f0ff,#ddeeff)
     max-height: 33px;
     overflow: hidden;
   }
-  .avail-text {
-    font-size: 0.65rem;
-    max-width: 260px;
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  /* Desktop span hide, mobile span show */
+  .avail-desktop { display: none; }
+  .avail-mobile {
+    display: inline;
+    font-size: 0.68rem;
+    color: #00ff88;
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
   }
-  .avail-dot {
-    flex-shrink: 0;
-  }
+  .avail-dot { flex-shrink: 0; }
 }
