@@ -1621,6 +1621,10 @@ img {
   color: #00ff88;
   letter-spacing: 0.06em;
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 260px;
 }
 
 .avail-close {
@@ -1708,6 +1712,12 @@ img {
 @keyframes tickerScroll {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+
+@media (max-width: 600px) {
+  .ticker-inner {
+    animation-duration: 10s;
+  }
 }
 
 /* ====== PROJECT MODAL ====== */
@@ -2087,3 +2097,21 @@ body.light-mode .card-front { background: #ffffff !important; border-color: rgba
 body.light-mode .card-back { background: linear-gradient(135deg,#e8f0ff,#ddeeff) !important; }
 
 .project-card { visibility: hidden; }
+
+/* ====== MOBILE BANNER FIX ====== */
+@media (max-width: 600px) {
+  #availability-banner {
+    padding: 6px 40px 6px 12px;
+    min-height: 33px;
+    max-height: 33px;
+    overflow: hidden;
+  }
+  .avail-text {
+    font-size: 0.65rem;
+    max-width: 200px;
+    letter-spacing: 0.02em;
+  }
+  .avail-dot {
+    flex-shrink: 0;
+  }
+}
