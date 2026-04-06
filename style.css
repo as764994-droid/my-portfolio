@@ -1621,12 +1621,7 @@ img {
   color: #00ff88;
   letter-spacing: 0.06em;
   text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 260px;
 }
-
 .avail-close {
   position: absolute;
   right: 16px;
