@@ -20,6 +20,14 @@
 <body>
 
   <!-- ===== NAVIGATION ===== -->
+  <!-- ===== AVAILABILITY BANNER ===== -->
+  <!-- ===== SCROLL PROGRESS BAR ===== -->
+  <div id="scroll-progress"></div> 
+  <div id="availability-banner">
+    <span class="avail-dot"></span>
+    <span class="avail-text">🟢 Open to Work &nbsp;·&nbsp; Data Analyst / Business Analyst &nbsp;·&nbsp; Immediate Joiner &nbsp;·&nbsp; Lucknow / Remote</span>
+    <button class="avail-close" id="availClose">✕</button>
+  </div>
   <nav id="navbar">
     <div class="nav-inner">
       <a href="#hero" class="nav-logo">AS<span class="dot">.</span></a>
@@ -32,6 +40,7 @@
         <li><a href="#dashboard">Live Demo</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+      <button id="themeToggle" class="theme-toggle" title="Toggle light/dark mode">🌙</button>
       <a href="resume/Ayush_Singh_Resume.pdf" download class="nav-cta">Download Resume</a>
       <button class="hamburger" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -64,22 +73,22 @@
       <p class="hero-location reveal delay-3">📍 Lucknow, Uttar Pradesh, India</p>
       <div class="hero-stats reveal delay-3">
         <div class="stat-item">
-          <span class="stat-num">6</span>
+          <span class="stat-num">7</span>
           <span class="stat-label">End-to-End Projects</span>
         </div>
         <div class="stat-divider"></div>
         <div class="stat-item">
-          <span class="stat-num">100K+</span>
+          <span class="stat-num">132K+</span>
           <span class="stat-label">Records Analyzed</span>
         </div>
         <div class="stat-divider"></div>
         <div class="stat-item">
-          <span class="stat-num">₹53M+</span>
+          <span class="stat-num">₹311M+</span>
           <span class="stat-label">Revenue Tracked</span>
         </div>
         <div class="stat-divider"></div>
         <div class="stat-item">
-          <span class="stat-num">23+</span>
+          <span class="stat-num">38+</span>
           <span class="stat-label">DAX Measures Built</span>
         </div>
       </div>
@@ -112,7 +121,7 @@
             I am a Data Analyst based in Lucknow, India, passionate about turning raw data into clear, actionable business insights. I specialize in building executive-level dashboards and performance trackers using <strong>Power BI</strong> and <strong>Advanced Excel</strong>.
           </p>
           <p class="about-bio">
-            I have built <strong>6 end-to-end analytics projects</strong> across e-commerce, FMCG, food delivery, streaming, and retail domains — working with datasets ranging from 8,500 to 100,000+ records. Currently upskilling in <strong>SQL and Python</strong> through the PW Skills Data Analytics with GenAI program.
+            I have built <strong>7 end-to-end analytics projects</strong> across e-commerce, FMCG, food delivery, streaming, retail, and banking domains — working with datasets ranging from 8,500 to 100,000+ records. Currently upskilling in <strong>SQL and Python</strong> through the PW Skills Data Analytics with GenAI program.
           </p>
           <p class="about-bio">
             Actively looking for <strong>Business Analyst</strong> or <strong>Data Analyst</strong> roles where I can contribute from day one.
@@ -129,6 +138,29 @@
       </div>
     </div>
   </section>
+
+<!-- ===== LEARNING TICKER ===== -->
+  <div class="learning-ticker">
+    <div class="ticker-label">📚 Currently Learning</div>
+    <div class="ticker-track">
+      <div class="ticker-inner">
+        <span>Python</span><span class="ticker-dot">·</span>
+        <span>Tableau</span><span class="ticker-dot">·</span>
+        <span>Machine Learning</span><span class="ticker-dot">·</span>
+        <span>Statistics</span><span class="ticker-dot">·</span>
+        <span>GenAI Tools</span><span class="ticker-dot">·</span>
+        <span>Pandas & NumPy</span><span class="ticker-dot">·</span>
+        <span>Scikit-Learn</span><span class="ticker-dot">·</span>
+        <span>Python</span><span class="ticker-dot">·</span>
+        <span>Tableau</span><span class="ticker-dot">·</span>
+        <span>Machine Learning</span><span class="ticker-dot">·</span>
+        <span>Statistics</span><span class="ticker-dot">·</span>
+        <span>GenAI Tools</span><span class="ticker-dot">·</span>
+        <span>Pandas & NumPy</span><span class="ticker-dot">·</span>
+        <span>Scikit-Learn</span><span class="ticker-dot">·</span>
+      </div>
+    </div>
+  </div>
 
   <!-- ===== SKILLS ===== -->
   <section id="skills">
@@ -200,7 +232,7 @@
     <div class="container">
       <div class="section-label reveal">03 — Projects</div>
       <h2 class="section-title centered reveal">End-to-End Analytics Projects</h2>
-      <p class="section-sub reveal">6 real-world projects · 5 industries · 3 tools</p>
+      <p class="section-sub reveal">7 real-world projects · 6 industries · 3 tools</p>
 
       <div class="projects-grid">
 
@@ -270,7 +302,7 @@
             <span class="feature-tag">Visibility Correlation</span>
           </div>
           <div class="project-footer">
-            <a href="https://github.com/as764994-droid/blinkit-grocery-sales-performance-dashboard-powerbi" target="_blank" class="project-link">View on GitHub →</a>
+            <a href="https://lnkd.in/gBXQkw5b" target="_blank" class="project-link">View on GitHub →</a>
           </div>
         </div>
 
@@ -412,6 +444,46 @@
         </div>
 
       </div>
+
+      <!-- PROJECT 7 — Credit Risk Capstone -->
+        <div class="project-card reveal" data-domain="Power BI">
+          <div class="project-header">
+            <div class="project-number mono">07</div>
+            <div class="project-tools">
+              <span class="tool-tag">Power BI</span>
+              <span class="tool-tag excel">Advanced Excel</span>
+              <span class="tool-tag sql">SQL</span>
+              <span class="tool-tag">DAX</span>
+            </div>
+          </div>
+          <div class="project-domain-badge">Banking · Credit Risk · Financial Services</div>
+          <h3 class="project-title">Credit Risk & Loan Default Analysis</h3>
+          <p class="project-desc">Full end-to-end capstone project simulating a real-world credit risk engagement — raw data to a 5-page Power BI dashboard built on 32,407 loan records. Delivered to a panel of CRO, CFO, Loan Committee, and Data Analytics Team personas with 12 stakeholder questions answered.</p>
+          <div class="project-metrics">
+            <div class="metric"><span class="metric-val">32,407</span><span class="metric-lbl">Loan Records</span></div>
+            <div class="metric"><span class="metric-val">21.87%</span><span class="metric-lbl">Default Rate Found</span></div>
+            <div class="metric"><span class="metric-val">15</span><span class="metric-lbl">DAX Measures</span></div>
+            <div class="metric"><span class="metric-val">4-Phase</span><span class="metric-lbl">Pipeline</span></div>
+          </div>
+          <div class="project-highlights">
+            <div class="highlight-item">🏦 Grade G loans default at 98.44% vs Grade A at 9.96%</div>
+            <div class="highlight-item">📊 Loan-to-income ratio = #1 predictor (Pearson +0.38)</div>
+            <div class="highlight-item">💸 ₹77M at-risk portfolio identified for CFO</div>
+            <div class="highlight-item">🎚️ What-If simulator: LTI >30% → default rate jumps to 61.93%</div>
+          </div>
+          <div class="project-features">
+            <span class="feature-tag">Excel Cleaning</span>
+            <span class="feature-tag">10 SQL Queries</span>
+            <span class="feature-tag">Statistical Analysis</span>
+            <span class="feature-tag">Drill-Through</span>
+            <span class="feature-tag">Decomposition Tree</span>
+            <span class="feature-tag">What-If Parameter</span>
+          </div>
+          <div class="project-footer">
+            <a href="https://lnkd.in/gQ6Peu7V" target="_blank" class="project-link">View on GitHub →</a>
+          </div>
+        </div>
+
       <!-- END PROJECTS GRID — ADD NEW PROJECT CARDS ABOVE THIS LINE -->
 
     </div>
@@ -568,7 +640,7 @@
           <div class="tl-date">2025</div>
           <div class="tl-icon">🗄️</div>
           <div class="tl-title">SQL & 6 Projects Complete</div>
-          <div class="tl-desc">Completed SQL Retail Analysis project. 6 end-to-end projects across 5 industries. Earned certifications in Power BI, Excel, and AI Tools.</div>
+          <div class="tl-desc">Completed SQL Retail Analysis project and Credit Risk Capstone. 7 end-to-end projects across 6 industries. Earned certifications in Power BI, Excel, and AI Tools.</div>
           <div class="tl-tag">SQL · MySQL · Window Functions</div>
         </div>
       </div>
@@ -602,6 +674,7 @@
         <button class="dash-btn" data-set="blinkit">Blinkit</button>
         <button class="dash-btn" data-set="swiggy">Swiggy</button>
         <button class="dash-btn" data-set="distributor">Distributor</button>
+        <button class="dash-btn" data-set="creditrisk">Credit Risk</button>
       </div>
 
       <!-- KPI Cards Row -->
@@ -659,17 +732,18 @@
       <p class="section-sub reveal">Open to Data Analyst & Business Analyst roles. Immediate joiner.</p>
 
       <div class="contact-grid reveal">
-        <a href="mailto:as764994@gmail.com" class="contact-card">
+        <a href="mailto:as764994@gmail.com" class="contact-card" style="position:relative;">
           <div class="contact-icon">✉️</div>
           <div class="contact-label">Email</div>
           <div class="contact-value">as764994@gmail.com</div>
+          <button class="copy-email-btn" id="copyEmailBtn" onclick="event.preventDefault();event.stopPropagation();copyEmail();" title="Copy email">📋 Copy</button>
         </a>
         <a href="https://linkedin.com/in/ayush-singh-finance" target="_blank" class="contact-card">
           <div class="contact-icon">💼</div>
           <div class="contact-label">LinkedIn</div>
           <div class="contact-value">ayush-singh-finance</div>
         </a>
-        <a href="https://github.com/as764994-droid" target="_blank" class="contact-card">
+        <a href="https://lnkd.in/gQ6Peu7V" target="_blank" class="contact-card">
           <div class="contact-icon">🐙</div>
           <div class="contact-label">GitHub</div>
           <div class="contact-value">as764994-droid</div>
@@ -688,8 +762,20 @@
       <div class="footer-logo">AS<span class="dot">.</span></div>
       <p class="footer-text">Ayush Singh · Data Analyst · Lucknow, India</p>
       <p class="footer-copy">Built with HTML · CSS · JavaScript &nbsp;|&nbsp; © 2025 Ayush Singh</p>
+      <p class="visitor-counter">👁 <span id="visitorCount">0</span> people have viewed this portfolio</p>
     </div>
   </footer>
+
+<!-- ===== PROJECT DEEP DIVE MODAL ===== -->
+  <div id="projectModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9990;align-items:center;justify-content:center;padding:20px;overflow-y:auto;">
+    <div id="projectModalBox" style="background:#0d1427;border:1px solid rgba(0,212,255,0.25);border-radius:16px;max-width:720px;width:100%;max-height:90vh;overflow-y:auto;position:relative;animation:modalIn 0.3s ease;">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 28px;border-bottom:1px solid rgba(255,255,255,0.07);position:sticky;top:0;background:#0d1427;z-index:2;border-radius:16px 16px 0 0;">
+        <div id="modalProjectNum" style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:#00d4ff;font-weight:600;"></div>
+        <button onclick="closeProjectModal()" style="background:rgba(255,255,255,0.08);border:none;color:#8a96b0;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s ease;">✕</button>
+      </div>
+      <div id="modalContent" style="padding:28px;"></div>
+    </div>
+  </div>  
 
   <script src="script.js"></script>
 </body>
