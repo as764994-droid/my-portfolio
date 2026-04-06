@@ -5,6 +5,41 @@
 
 window.addEventListener('load', function() {
 
+/* ====== SCROLL PROGRESS BAR ====== */
+const scrollBar = document.getElementById('scroll-progress');
+if (scrollBar) {
+  window.addEventListener('scroll', function() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    scrollBar.style.width = pct + '%';
+  });
+}
+
+/* ====== 0. AVAILABILITY BANNER ====== */
+const availBanner = document.getElementById('availability-banner');
+const availClose = document.getElementById('availClose');
+if (availClose && availBanner) {
+  availClose.addEventListener('click', function() {
+    availBanner.classList.add('hidden');
+    document.getElementById('navbar').style.top = '0px';
+    setTimeout(function() { availBanner.style.display = 'none'; }, 300);
+  });
+}
+window.addEventListener('scroll', function() {
+  if (availBanner && !availBanner.classList.contains('hidden')) {
+    if (window.scrollY > 120) {
+      availBanner.style.transform = 'translateY(-100%)';
+      availBanner.style.opacity = '0';
+      document.getElementById('navbar').style.top = '0px';
+    } else {
+      availBanner.style.transform = '';
+      availBanner.style.opacity = '';
+      document.getElementById('navbar').style.top = '33px';
+    }
+  }
+});
+  
 /* ====== 1. NAVBAR ====== */
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', function() {
@@ -94,10 +129,10 @@ if (heroStats) {
         entry.target.querySelectorAll('.stat-num').forEach(function(el) {
           const txt = el.getAttribute('data-val') || el.textContent.trim();
           el.setAttribute('data-val', txt);
-          if (txt === '6') animCount(el, 6, '', '');
-          else if (txt.includes('K+')) animCount(el, 100, '', 'K+');
-          else if (txt.includes('₹')) animCount(el, 53, '₹', 'M+');
-          else if (txt.includes('23+')) animCount(el, 23, '', '+');
+          if (txt === '7') animCount(el, 7, '', '');
+          else if (txt.includes('K+')) animCount(el, 132, '', 'K+');
+          else if (txt.includes('₹')) animCount(el, 311, '₹', 'M+');
+          else if (txt.includes('38+')) animCount(el, 38, '', '+');
           else animCount(el, parseInt(txt.replace(/[^0-9]/g, '')), '', txt.replace(/[0-9]/g, ''));
         });
       }
@@ -180,12 +215,14 @@ if (heroStats) {
   function drawRadar(progress) {
     ctx.clearRect(0,0,canvas.width,canvas.height);
     const step=(Math.PI*2)/total;
-    for(let ring=1;ring<=5;ring++){ctx.beginPath();for(let i=0;i<total;i++){const a=i*step-Math.PI/2,rr=(r*ring)/5;i===0?ctx.moveTo(cx+rr*Math.cos(a),cy+rr*Math.sin(a)):ctx.lineTo(cx+rr*Math.cos(a),cy+rr*Math.sin(a));}ctx.closePath();ctx.strokeStyle='rgba(255,255,255,0.06)';ctx.lineWidth=1;ctx.stroke();}
-    for(let i=0;i<total;i++){const a=i*step-Math.PI/2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a));ctx.strokeStyle='rgba(255,255,255,0.08)';ctx.lineWidth=1;ctx.stroke();}
+    for(let ring=1;ring<=5;ring++){ctx.beginPath();for(let i=0;i<total;i++){const a=i*step-Math.PI/2,rr=(r*ring)/5;i===0?ctx.moveTo(cx+rr*Math.cos(a),cy+rr*Math.sin(a)):ctx.lineTo(cx+rr*Math.cos(a),cy+rr*Math.sin(a));}ctx.closePath();const gridColor = document.body.classList.contains('light-mode') ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.06)';
+    ctx.strokeStyle=gridColor;ctx.lineWidth=1;ctx.stroke();}
+    for(let i=0;i<total;i++){const a=i*step-Math.PI/2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a));ctx.strokeStyle=document.body.classList.contains('light-mode')?'rgba(0,0,0,0.12)':'rgba(255,255,255,0.08)';ctx.lineWidth=1;ctx.stroke();}
     ctx.beginPath();
     for(let i=0;i<total;i++){const a=i*step-Math.PI/2,val=skills[i].value*progress;i===0?ctx.moveTo(cx+r*val*Math.cos(a),cy+r*val*Math.sin(a)):ctx.lineTo(cx+r*val*Math.cos(a),cy+r*val*Math.sin(a));}
     ctx.closePath();const grad=ctx.createRadialGradient(cx,cy,0,cx,cy,r);grad.addColorStop(0,'rgba(0,212,255,0.35)');grad.addColorStop(1,'rgba(0,212,255,0.04)');ctx.fillStyle=grad;ctx.fill();ctx.strokeStyle='#00d4ff';ctx.lineWidth=2;ctx.stroke();
-    for(let i=0;i<total;i++){const a=i*step-Math.PI/2,val=skills[i].value*progress;const x=cx+r*val*Math.cos(a),y=cy+r*val*Math.sin(a);ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fillStyle='#00d4ff';ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();ctx.font='600 11px Space Grotesk,sans-serif';ctx.fillStyle='rgba(232,237,247,'+Math.min(progress*2,1)+')';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(skills[i].label,cx+(r+42)*Math.cos(a),cy+(r+42)*Math.sin(a));if(progress>0.6){ctx.font='bold 9px JetBrains Mono,monospace';ctx.fillStyle='#fff';ctx.fillText(Math.round(skills[i].value*100)+'%',cx+r*val*0.5*Math.cos(a),cy+r*val*0.5*Math.sin(a));}}
+    for(let i=0;i<total;i++){const a=i*step-Math.PI/2,val=skills[i].value*progress;const x=cx+r*val*Math.cos(a),y=cy+r*val*Math.sin(a);ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fillStyle='#00d4ff';ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();ctx.font='600 11px Space Grotesk,sans-serif';const isLight = document.body.classList.contains('light-mode');
+    ctx.fillStyle = isLight ? 'rgba(6,12,28,'+Math.min(progress*2,1)+')' : 'rgba(232,237,247,'+Math.min(progress*2,1)+')';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(skills[i].label,cx+(r+42)*Math.cos(a),cy+(r+42)*Math.sin(a));if(progress>0.6){ctx.font='bold 9px JetBrains Mono,monospace';ctx.fillStyle='#fff';ctx.fillText(Math.round(skills[i].value*100)+'%',cx+r*val*0.5*Math.cos(a),cy+r*val*0.5*Math.sin(a));}}
   }
   new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){let start=null;function anim(ts){if(!start)start=ts;const p=Math.min((ts-start)/1400,1);drawRadar(p);if(p<1)requestAnimationFrame(anim);}requestAnimationFrame(anim);}});},{threshold:0.2}).observe(canvas);
   drawRadar(0);
@@ -197,7 +234,7 @@ if (heroStats) {
   if (!aboutText) return;
   const wrap = document.createElement('div');
   wrap.style.cssText='margin-top:32px;';
-  wrap.innerHTML='<p style="font-family:JetBrains Mono,monospace;font-size:.78rem;color:#00d4ff;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;">Projects by Domain</p><div id="miniChart" style="display:flex;align-items:flex-end;gap:20px;height:120px;background:rgba(0,212,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:12px 20px 10px"><div class="bgrp" data-h="66"><div class="bfill" style="background:#00d4ff;box-shadow:0 0 12px rgba(0,212,255,.5)"></div><div style="font-size:.72rem;color:#8a96b0;font-family:JetBrains Mono,monospace;margin-top:6px">Power BI</div><div style="font-size:.8rem;font-weight:700;color:#e8edf7">2</div></div><div class="bgrp" data-h="100"><div class="bfill" style="background:#33cc66;box-shadow:0 0 12px rgba(51,204,102,.5)"></div><div style="font-size:.72rem;color:#8a96b0;font-family:JetBrains Mono,monospace;margin-top:6px">Excel</div><div style="font-size:.8rem;font-weight:700;color:#e8edf7">3</div></div><div class="bgrp" data-h="33"><div class="bfill" style="background:#ff9933;box-shadow:0 0 12px rgba(255,153,51,.5)"></div><div style="font-size:.72rem;color:#8a96b0;font-family:JetBrains Mono,monospace;margin-top:6px">SQL</div><div style="font-size:.8rem;font-weight:700;color:#e8edf7">1</div></div></div>';
+  wrap.innerHTML='<p style="font-family:JetBrains Mono,monospace;font-size:.78rem;color:#00d4ff;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;">Projects by Domain</p><div id="miniChart" style="display:flex;align-items:flex-end;gap:20px;height:120px;background:rgba(0,212,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:12px 20px 10px"><div class="bgrp" data-h="75"><div class="bfill" style="background:#00d4ff;box-shadow:0 0 12px rgba(0,212,255,.5)"></div><div style="font-size:.72rem;color:#8a96b0;font-family:JetBrains Mono,monospace;margin-top:6px">Power BI</div><div style="font-size:.8rem;font-weight:700;color:#e8edf7">3</div></div><div class="bgrp" data-h="100"><div class="bfill" style="background:#33cc66;box-shadow:0 0 12px rgba(51,204,102,.5)"></div><div style="font-size:.72rem;color:#8a96b0;font-family:JetBrains Mono,monospace;margin-top:6px">Excel</div><div style="font-size:.8rem;font-weight:700;color:#e8edf7">4</div></div><div class="bgrp" data-h="50"><div class="bfill" style="background:#ff9933;box-shadow:0 0 12px rgba(255,153,51,.5)"></div><div style="font-size:.72rem;color:#8a96b0;font-family:JetBrains Mono,monospace;margin-top:6px">SQL</div><div style="font-size:.8rem;font-weight:700;color:#e8edf7">2</div></div></div>';
   aboutText.appendChild(wrap);
   const bStyle=document.createElement('style');
   bStyle.textContent='.bgrp{display:flex;flex-direction:column;align-items:center;flex:1;height:100%;justify-content:flex-end;text-align:center}.bfill{width:100%;max-width:56px;height:0;border-radius:4px 4px 0 0;transition:height 1.3s cubic-bezier(.4,0,.2,1)}';
@@ -288,7 +325,8 @@ if (heroStats) {
     { number:'03', logo:'assets/images/logos/fmcg.png', emoji:'📦', domain:'FMCG · Distribution', title:'National Distributor Sales Dashboard', tools:['Excel','Power Query','PivotTables'], metrics:[{val:'100K+',lbl:'Records'},{val:'36',lbl:'Months'},{val:'8',lbl:'PivotTables'},{val:'100%',lbl:'Automated'}], insight:'100% manual reporting eliminated · Promo ROI validated', github:'https://lnkd.in/gbcumXRA' },
     { number:'04', logo:'assets/images/logos/swiggy.png', emoji:'🍔', domain:'Food Delivery · E-commerce', title:'Swiggy Sales & Market Analysis', tools:['Excel','Pivot Tables','Time-Series'], metrics:[{val:'197K',lbl:'Orders'},{val:'₹53M',lbl:'Revenue'},{val:'₹268',lbl:'Avg Order'},{val:'32%',lbl:'Q3 Decline'}], insight:'Lucknow #2 nationally · Veg = 65% revenue · Fri–Sun peak', github:'https://lnkd.in/g8wm3vmA' },
     { number:'05', logo:'assets/images/logos/vrinda.png', emoji:'🛍️', domain:'E-commerce · Multi-Channel Retail', title:'Vrinda Store Annual Sales Report', tools:['Excel','Pivot Tables'], metrics:[{val:'12',lbl:'Months'},{val:'65%',lbl:'Women Buyers'},{val:'80%',lbl:'Top 3 Channels'},{val:'92%',lbl:'Delivery Rate'}], insight:'Women 30–49 in MH, KA, UP via Amazon/Flipkart/Myntra', github:'https://lnkd.in/g9viZyqC' },
-    { number:'06', logo:'assets/images/logos/sql.png', emoji:'🗄️', domain:'Retail · SQL Analytics', title:'Retail Sales Analysis — SQL Project', tools:['SQL','MySQL','CTEs'], metrics:[{val:'10',lbl:'SQL Queries'},{val:'11',lbl:'Cols Cleaned'},{val:'RANK()',lbl:'Window Fn'},{val:'Full EDA',lbl:'Pipeline'}], insight:'Best month via RANK() · Shift analysis via CASE WHEN + CTE', github:'https://lnkd.in/gXbrYqPA' }
+    { number:'06', logo:'assets/images/logos/sql.png', emoji:'🗄️', domain:'Retail · SQL Analytics', title:'Retail Sales Analysis — SQL Project', tools:['SQL','MySQL','CTEs'], metrics:[{val:'10',lbl:'SQL Queries'},{val:'11',lbl:'Cols Cleaned'},{val:'RANK()',lbl:'Window Fn'},{val:'Full EDA',lbl:'Pipeline'}], insight:'Best month via RANK() · Shift analysis via CASE WHEN + CTE', github:'https://lnkd.in/gXbrYqPA' },
+    { number:'07', logo:'assets/images/logos/credit-risk.png', emoji:'🏦', domain:'Banking · Credit Risk · Financial Services', title:'Credit Risk & Loan Default Analysis', tools:['Power BI','Excel','SQL'], metrics:[{val:'32,407',lbl:'Records'},{val:'21.87%',lbl:'Default Rate'},{val:'15',lbl:'DAX Measures'},{val:'4-Phase',lbl:'Pipeline'}], insight:'Grade G = 98.44% default · ₹77M at risk · LTI = #1 predictor', github:'https://github.com/as764994-droid' }
   ];
 
   const cards = document.querySelectorAll('.project-card');
@@ -327,6 +365,7 @@ if (heroStats) {
         '<div class="cb-metrics">' + metricsHTML + '</div>' +
         '<div class="cb-insight">💡 ' + d.insight + '</div>' +
         '<div class="cb-tools">' + backToolsHTML + '</div>' +
+        '<button class="cb-deepdive" onclick="event.stopPropagation();window.openProjectModal(' + idx + ')">🔍 View Full Details</button>' +
         githubHTML +
       '</div>';
 
@@ -415,7 +454,8 @@ document.querySelectorAll('.tl-item').forEach(function(item) {
     netflix: { kpis:[{label:'Total Titles',val:'8,800+',trend:'↑ 26.93% Fresh',cls:'up'},{label:'Countries',val:'190+',trend:'↑ 64.68% International',cls:'up'},{label:'Movies vs TV',val:'69.6%',trend:'30.4% TV Shows',cls:''},{label:'Flagged Content',val:'43%',trend:'↓ US Compliance Risk',cls:'down'}], bars:[{lbl:'International',pct:65},{lbl:'Dramas',pct:58},{lbl:'Comedies',pct:42},{lbl:'Documentaries',pct:35},{lbl:'Action',pct:28},{lbl:'Children',pct:20}], donut:[{label:'Movies',val:69.6,color:'#00d4ff'},{label:'TV Shows',val:30.4,color:'#0077aa'}], chart1title:'Content by Category (%)',chart2title:'Content Mix' },
     blinkit: { kpis:[{label:'Total Sales',val:'₹1.2M',trend:'↑ Supermarket T1',cls:'up'},{label:'Avg Rating',val:'3.9★',trend:'Customer Score',cls:''},{label:'Top Location',val:'Tier 3',trend:'↑ Counter-intuitive',cls:'up'},{label:'Items Tracked',val:'1,559',trend:'Distinct SKUs',cls:''}], bars:[{lbl:'Fruits & Veg',pct:72},{lbl:'Snack Foods',pct:65},{lbl:'Household',pct:48},{lbl:'Frozen Foods',pct:38},{lbl:'Dairy',pct:35},{lbl:'Seafood',pct:18}], donut:[{label:'Supermarket T1',val:55,color:'#00d4ff'},{label:'Grocery',val:28,color:'#0077aa'},{label:'Others',val:17,color:'#005577'}], chart1title:'Revenue by Category (%)',chart2title:'Outlet Mix' },
     swiggy: { kpis:[{label:'Total Orders',val:'197K',trend:'Q1-Q3 Combined',cls:''},{label:'Total Revenue',val:'₹53M',trend:'↓ 32% Q3 Drop',cls:'down'},{label:'Avg Order Value',val:'₹268',trend:'Benchmark set',cls:''},{label:'Avg Rating',val:'4.34★',trend:'↑ Above average',cls:'up'}], bars:[{lbl:'Bengaluru',pct:88},{lbl:'Lucknow #2',pct:76},{lbl:'Mumbai',pct:70},{lbl:'Delhi',pct:62},{lbl:'Hyderabad',pct:48},{lbl:'Chennai',pct:40}], donut:[{label:'Vegetarian',val:65,color:'#33cc66'},{label:'Non-Veg',val:35,color:'#ff9933'}], chart1title:'Revenue by City (%)',chart2title:'Food Category' },
-    distributor: { kpis:[{label:'Records',val:'100K+',trend:'36 months data',cls:''},{label:'Channels',val:'3',trend:'Retail·Ecom·Disc',cls:''},{label:'Promo ROI',val:'↑ High',trend:'Validated by data',cls:'up'},{label:'Reporting',val:'100%',trend:'↑ Automated',cls:'up'}], bars:[{lbl:'Yogurt & Milk',pct:82},{lbl:'Snacks',pct:65},{lbl:'Beverages',pct:55},{lbl:'Personal Care',pct:40},{lbl:'Household',pct:35},{lbl:'Others',pct:22}], donut:[{label:'Retail',val:34,color:'#00d4ff'},{label:'E-commerce',val:33,color:'#0077aa'},{label:'Discount',val:33,color:'#005577'}], chart1title:'Revenue by Category (%)',chart2title:'Channel Split' }
+    distributor: { kpis:[{label:'Records',val:'100K+',trend:'36 months data',cls:''},{label:'Channels',val:'3',trend:'Retail·Ecom·Disc',cls:''},{label:'Promo ROI',val:'↑ High',trend:'Validated by data',cls:'up'},{label:'Reporting',val:'100%',trend:'↑ Automated',cls:'up'}], bars:[{lbl:'Yogurt & Milk',pct:82},{lbl:'Snacks',pct:65},{lbl:'Beverages',pct:55},{lbl:'Personal Care',pct:40},{lbl:'Household',pct:35},{lbl:'Others',pct:22}], donut:[{label:'Retail',val:34,color:'#00d4ff'},{label:'E-commerce',val:33,color:'#0077aa'},{label:'Discount',val:33,color:'#005577'}], chart1title:'Revenue by Category (%)',chart2title:'Channel Split' },
+    creditrisk: { kpis:[{label:'Default Rate',val:'21.87%',trend:'↓ 1 in 5 loans defaults',cls:'down'},{label:'Amount at Risk',val:'₹77M',trend:'↓ Defaulted portfolio',cls:'down'},{label:'Safe Portfolio',val:'₹234M',trend:'↑ Non-defaulted loans',cls:'up'},{label:'Top Predictor',val:'+0.38',trend:'↑ Loan-to-income ratio',cls:'up'}], bars:[{lbl:'Grade G (98.4%)',pct:98},{lbl:'Grade F (70.5%)',pct:70},{lbl:'Grade E (64.5%)',pct:64},{lbl:'Grade D (59.1%)',pct:59},{lbl:'Grade C (20.8%)',pct:21},{lbl:'Grade A (9.96%)',pct:10}], donut:[{label:'Not Defaulted',val:78.13,color:'#10b981'},{label:'Defaulted',val:21.87,color:'#ef4444'}], chart1title:'Default Rate by Loan Grade (%)',chart2title:'Portfolio Health' }
   };
   let current='netflix';
   function updateTime(){const el=document.getElementById('dashTime');if(el)el.textContent=new Date().toLocaleTimeString();}
@@ -451,8 +491,8 @@ if(certModal)certModal.addEventListener('click',function(e){if(e.target===this)w
     linkedin: "linkedin.com/in/ayush-singh-finance",
     availability: "Immediate joiner — available right now",
     education: "B.Com in Accounting & Finance from University of Lucknow (2020–2024). Currently enrolled in PW Skills Data Analytics with GenAI program — learning SQL, Python, Power BI, Tableau, and Machine Learning.",
-    about: "Ayush is a Data Analyst from Lucknow, India who specializes in turning raw data into clear business decisions. He has built 6 end-to-end analytics projects across 5 industries — working with datasets ranging from 8,500 to 100,000+ records. He is passionate about building executive-level dashboards and performance trackers.",
-    experience: "6 real-world end-to-end projects across e-commerce, FMCG, food delivery, streaming, and retail. Analyzed 100,000+ records, tracked ₹53M+ in revenue, and built 23+ DAX measures.",
+    about: "Ayush is a Data Analyst from Lucknow, India who specializes in turning raw data into clear business decisions. He has built 7 end-to-end analytics projects across 6 industries — working with datasets ranging from 8,500 to 100,000+ records. He is passionate about building executive-level dashboards and performance trackers.",
+    experience: "7 real-world end-to-end projects across e-commerce, FMCG, food delivery, streaming, retail, and banking/financial services. Analyzed 100,000+ records, tracked ₹311M+ in revenue, built 23+ DAX measures, and delivered a 4-phase credit risk analytical pipeline.",
     tools: {
       powerbi: "Expert level. Ayush builds production-grade Power BI dashboards with DAX, Power Query, Row-Level Security (RLS), What-If Parameters, Drill-Through, Bookmarks, Custom Tooltips, and Custom Themes. He has built 5-page dashboards designed for VP-level stakeholders.",
       excel: "Expert level. Advanced Excel including Pivot Tables, PivotCharts, Power Query (150+ lines of M code), Slicers, GETPIVOTDATA, and full dashboard automation. Has eliminated 100% of manual reporting for a national distributor.",
@@ -468,18 +508,37 @@ if(certModal)certModal.addEventListener('click',function(e){if(e.target===this)w
       swiggy: "Swiggy Sales & Market Analysis — dynamic Excel KPI dashboard analyzing 197,430 orders worth ₹53.01M. Identified a critical 32% Q3 revenue decline and delivered 3 strategic recommendations. Discovered Lucknow ranks #2 nationally, vegetarian orders = 65% of revenue, and Friday–Sunday is peak ordering period.",
       vrinda: "Vrinda Store Annual Sales Report 2022 — 12-month Excel analysis answering 8 critical business questions. Found that women aged 30–49 in Maharashtra, Karnataka, and UP via Amazon, Flipkart, and Myntra are the highest-value segment. Delivered a precise 2023 marketing strategy.",
       sql: "Retail Sales Analysis SQL Project — end-to-end MySQL project from database setup and data cleaning to 10 business queries. Used RANK() window function for best-selling month, CTEs for shift analysis, and built a full EDA pipeline — all without any BI tool.",
+      creditrisk: "Credit Risk & Loan Default Analysis — full end-to-end capstone project (Excel → SQL → Statistics → Power BI) on 32,407 loan records. Answered 12 stakeholder questions for CRO, CFO, Loan Committee, and Data Analytics Team. Key findings: 21.87% overall default rate, Grade G loans default at 98.44%, loan-to-income ratio is the #1 predictor (Pearson +0.38), and ₹77M in portfolio is at risk. Built a 5-page Power BI dashboard with 15 DAX measures, What-If LTI simulator, Drill-Through, Decomposition Tree, and a custom Credit Sentinel dark finance theme.",
     },
-    strengths: "Ayush's biggest strengths are: (1) Business thinking — he doesn't just build charts, he identifies actionable insights like the 32% Q3 Swiggy decline and counter-intuitive Tier 3 dominance in Blinkit. (2) Technical depth — 23+ DAX measures, Power Query automation, SQL window functions. (3) Stakeholder focus — his dashboards are designed for VP and C-suite personas, not just data teams. (4) Speed — immediate joiner, 6 projects already built.",
-    whyhire: "Ayush brings 3 things most freshers don't: real project depth (not toy datasets), business insight (not just charts), and immediate availability. His projects have tracked ₹53M in revenue, analyzed 100K+ records, and eliminated manual reporting entirely. He thinks like a business analyst, not just a data technician.",
+    strengths: "Ayush's biggest strengths are: (1) Business thinking — he doesn't just build charts, he identifies actionable insights like the 32% Q3 Swiggy decline, counter-intuitive Tier 3 dominance in Blinkit, and a ₹77M at-risk portfolio in his Credit Risk capstone. (2) Technical depth — 23+ DAX measures, Power Query automation, SQL window functions, and Pearson correlation statistical analysis. (3) Stakeholder focus — his dashboards are designed for CRO, CFO, and VP-level personas, not just data teams. (4) Speed — immediate joiner, 7 projects already built.",
+    whyhire: "Ayush brings 3 things most freshers don't: real project depth (not toy datasets), business insight (not just charts), and immediate availability. His projects have tracked ₹311M+ in revenue, analyzed 100K+ records, eliminated manual reporting entirely, and quantified ₹77M in credit portfolio risk. He thinks like a business analyst, not just a data technician.",
     certifications: "Power BI Workshop (OfficeMaster, Nov 2025), Advanced Excel Certification (OneRoadmap — verified), AI Tools Workshop (be10x, Nov 2025), Data Analyst Certification (OneRoadmap — verified), Data Analytics Completion Certificate (Skillsetmaster, Jan 2026).",
     salary: "Ayush is open to discussing compensation based on the role and company. He is primarily focused on finding the right opportunity to contribute and grow.",
     notice: "Immediate joiner. Zero notice period. Can start right away.",
-    domain: "Ayush has worked across 5 industries: Streaming (Netflix), Grocery Retail (Blinkit), FMCG Distribution, Food Delivery (Swiggy), E-commerce Retail (Vrinda Store), and SQL Retail Analytics.",
+    domain: "Ayush has worked across 6 industries: Streaming (Netflix), Grocery Retail (Blinkit), FMCG Distribution, Food Delivery (Swiggy), E-commerce Retail (Vrinda Store), SQL Retail Analytics, and Banking & Financial Services (Credit Risk & Loan Default Analysis).",
   };
 
   /* ---- INTENT MATCHER ---- */
   function getResponse(input) {
     const q = input.toLowerCase().trim();
+
+    // Recruiter detection
+    if (/hiring|we.*looking|open.*position|job opening|vacancy|team.*need|recruiting|talent|candidate|interview|onboard|join.*team/.test(q))
+      return `👔 Sounds like you're hiring! Here's Ayush's quick recruiter summary:\n\n🎯 Role: Data Analyst / Business Analyst\n📍 Location: Lucknow — open to Remote & Relocation\n⚡ Availability: Immediate Joiner — Zero notice period\n📊 Projects: 7 end-to-end across 6 industries\n💰 Revenue Tracked: ₹311M+\n🛠️ Tools: Power BI · Advanced Excel · SQL · DAX\n\n📧 Reach him at: as764994@gmail.com\n💼 LinkedIn: linkedin.com/in/ayush-singh-finance\n\nHe's ready to contribute from Day 1! 🚀`;
+
+    // Surprise Me
+    if (/surprise|random|fun fact|impress me|wow me/.test(q)) {
+      const facts = [
+        '🎲 In Ayush\'s Swiggy project, Lucknow ranked #2 nationally — beating Mumbai and Delhi in total order volume. A Tier-2 city outperforming major metros!',
+        '🎲 Ayush\'s Credit Risk capstone found that Grade G loans default at 98.44% — nearly every single one. Grade A defaults at only 9.96%. A 10x difference!',
+        '🎲 In the Blinkit dashboard, Tier 3 locations generated MORE revenue than Tier 1 cities — completely counter-intuitive and discovered through data!',
+        '🎲 Ayush wrote ~150 lines of Power Query M code for his National Distributor project — eliminating 100% of manual monthly reporting.',
+        '🎲 His Netflix dashboard has Row-Level Security so the US, India, and UK teams each see only their own regional data — a real enterprise Power BI feature!',
+        '🎲 The Credit Risk What-If simulator shows that when loan-to-income ratio crosses 30%, the default rate jumps from 20.98% to 61.93% — almost 3x higher!',
+        '🎲 Ayush tracked ₹311M+ in total revenue across his 7 projects. That\'s over 3.7 Crore rupees of business data analyzed!',
+      ];
+      return facts[Math.floor(Math.random() * facts.length)];
+    }
 
     // Greetings
     if (/^(hi|hello|hey|good morning|good afternoon|good evening|namaste|hii|helo)/.test(q))
@@ -489,8 +548,9 @@ if(certModal)certModal.addEventListener('click',function(e){if(e.target===this)w
     if (/who are you|what are you|are you ai|are you real|are you human/.test(q))
       return `I'm an AI assistant built specifically for Ayush Singh's portfolio. I know everything about his skills, projects, certifications, and career goals. Ask me anything! 🤖`;
 
-    // About Ayush
-    if (/about (ayush|him|yourself)|tell me about|introduce|who is ayush|background/.test(q))
+    // Resume download request
+    if (/resume|cv|download|portfolio pdf/.test(q))
+      return `📄 __RESUME_CARD__`;
       return `${kb.about}\n\n📍 Based in ${kb.location}\n📧 ${kb.email}\n🔗 ${kb.linkedin}`;
 
     // Location
@@ -529,6 +589,15 @@ if(certModal)certModal.addEventListener('click',function(e){if(e.target===this)w
     if (/skill|tool|tech|know|expertise|proficient|tech stack/.test(q))
       return `🛠️ Here's Ayush's technical stack:\n\n📊 Power BI — Expert (DAX, Power Query, RLS, What-If)\n📗 Advanced Excel — Expert (Pivot Tables, Power Query, Automation)\n🗄️ SQL/MySQL — Intermediate (Window Functions, CTEs, EDA)\n🐍 Python — Learning\n📈 Tableau — Learning\n\nHis strongest tools are Power BI and Advanced Excel.`;
 
+    // Project comparison
+    if (/compare|vs|versus/.test(q)) {
+      if (/netflix.*credit|credit.*netflix/.test(q))
+        return `📊 Netflix vs Credit Risk:\n\n🎬 Netflix Dashboard\n• Tool: Power BI only\n• Dataset: 8,800+ titles · 190 countries\n• DAX Measures: 23+\n• Pages: 5\n• Special: RLS · Bookmarks · Custom Theme\n\n🏦 Credit Risk Capstone\n• Tools: Excel + SQL + Power BI\n• Dataset: 32,407 loan records\n• DAX Measures: 15\n• Pages: 5\n• Special: Statistical Analysis · Decomposition Tree · What-If LTI\n\nBoth are 5-page dashboards — but Credit Risk is more complex as a full 4-phase pipeline!`;
+      if (/power bi.*excel|excel.*power bi/.test(q))
+        return `📊 Power BI vs Excel Projects:\n\n📊 Power BI Projects (3)\n• Netflix Content Strategy Dashboard\n• Blinkit Grocery Sales Dashboard\n• Credit Risk & Loan Default Analysis\n\n📗 Excel Projects (4)\n• National Distributor Sales Dashboard\n• Swiggy Sales & Market Analysis\n• Vrinda Store Annual Sales Report\n• Credit Risk (Phase 1 — Cleaning)\n\nExcel dominates in volume, Power BI in complexity!`;
+      return `📊 I can compare specific projects! Try asking:\n\n• "Compare Netflix and Credit Risk"\n• "Compare Power BI and Excel projects"\n• "Compare Swiggy and Vrinda projects"`;
+    }
+
     // Netflix project
     if (/netflix/.test(q))
       return `🎬 ${kb.projects.netflix}`;
@@ -553,13 +622,17 @@ if(certModal)certModal.addEventListener('click',function(e){if(e.target===this)w
     if (/sql project|retail.*sql|sql.*retail/.test(q))
       return `🗄️ ${kb.projects.sql}`;
 
+    // Credit Risk capstone project
+    if (/credit|loan|default|risk|capstone|banking|financial|lti|grade.*loan|loan.*grade/.test(q))
+      return `🏦 ${kb.projects.creditrisk}`;
+
     // All projects
     if (/project|portfolio|work|built|created/.test(q))
-      return `📁 Ayush has built 6 end-to-end projects:\n\n🎬 Netflix Content Strategy Dashboard (Power BI)\n🛒 Blinkit Grocery Sales Dashboard (Power BI)\n📦 National Distributor Dashboard (Excel)\n🍔 Swiggy Sales & Market Analysis (Excel)\n🛍️ Vrinda Store Annual Sales Report (Excel)\n🗄️ Retail Sales SQL Project (MySQL)\n\nWhich one would you like to know more about?`;
+      return `📁 Ayush has built 7 end-to-end projects:\n\n🎬 Netflix Content Strategy Dashboard (Power BI)\n🛒 Blinkit Grocery Sales Dashboard (Power BI)\n📦 National Distributor Dashboard (Excel)\n🍔 Swiggy Sales & Market Analysis (Excel)\n🛍️ Vrinda Store Annual Sales Report (Excel)\n🗄️ Retail Sales SQL Project (MySQL)\n🏦 Credit Risk & Loan Default Analysis (Excel + SQL + Power BI)\n\nWhich one would you like to know more about?`;
 
     // Best project
     if (/best project|favourite project|most complex|most impressive/.test(q))
-      return `🏆 Ayush's most complex project is the Netflix Content Strategy Dashboard — a 5-page Power BI report with 23+ DAX measures, Row-Level Security, What-If investment simulator, and a custom Netflix theme. It was designed for VP-level stakeholders including the CFO. You can view it on his GitHub!`;
+      return `🏆 Ayush's most complex project is his Credit Risk & Loan Default Analysis Capstone — a full 4-phase pipeline (Excel → SQL → Statistics → Power BI) built on 32,407 loan records for CRO, CFO, and Loan Committee personas. It features 15 DAX measures, a What-If LTI simulator, Decomposition Tree, Drill-Through, and a custom Credit Sentinel dark finance theme. His second most complex is the Netflix Dashboard with 23+ DAX measures and Row-Level Security. Both are available on his GitHub!`;
 
     // Experience / numbers
     if (/experience|years|how long|how many/.test(q))
@@ -572,6 +645,10 @@ if(certModal)certModal.addEventListener('click',function(e){if(e.target===this)w
     // Strengths
     if (/strength|strong|good at|best at|special/.test(q))
       return `💪 ${kb.strengths}`;
+
+    // Easter egg — what makes him different
+    if (/what makes (you|him|ayush) different|why not other|stand out|unique|unlike other|better than other/.test(q))
+      return `🌟 Here's what makes Ayush genuinely different from other freshers:\n\nMost freshers submit toy datasets with 500 rows and call it a project. Ayush built a 4-phase analytical pipeline on 32,407 real loan records — answering 12 questions for a CRO, CFO, and Loan Committee.\n\nMost freshers make charts. Ayush finds the insight that changes a decision — like discovering Lucknow ranks #2 nationally in Swiggy, or that Grade G loans default 98% of the time.\n\nMost freshers know one tool. Ayush delivers Excel → SQL → Statistics → Power BI in a single project.\n\nMost freshers need onboarding time. Ayush is an immediate joiner with zero notice period and 7 real projects already shipped.\n\nHe doesn't just analyze data. He thinks like a business analyst. 🎯`;
 
     // Why hire
     if (/why hire|why should|hire him|recommend|suited|right candidate/.test(q))
@@ -904,6 +981,33 @@ if(certModal)certModal.addEventListener('click',function(e){if(e.target===this)w
   const suggBox = document.getElementById('chat-suggestions');
   let isOpen = false;
 
+  const quickReplySets = [
+    ['View his projects', 'What tools does he know?', 'Is he available?'],
+    ['Tell me about Netflix project', 'Tell me about Credit Risk project', 'What are his strengths?'],
+    ['Why should I hire him?', 'How to contact him?', 'What certifications does he have?'],
+    ['Tell me about Swiggy project', 'Tell me about Blinkit project', 'What industries has he worked in?'],
+  ];
+  let qrIndex = 0;
+  const chatHistory = [];
+
+  function addQuickReplies() {
+    const existing = document.getElementById('quick-reply-row');
+    if (existing) existing.remove();
+    const row = document.createElement('div');
+    row.id = 'quick-reply-row';
+    row.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px;border-top:1px solid rgba(255,255,255,0.04);animation:msgIn 0.3s ease;';
+    const set = quickReplySets[qrIndex % quickReplySets.length];
+    qrIndex++;
+    set.forEach(function(s) {
+      const btn = document.createElement('button');
+      btn.className = 'sugg-btn';
+      btn.textContent = s;
+      btn.addEventListener('click', function() { sendMessage(s); });
+      row.appendChild(btn);
+    });
+    msgs.after(row);
+  }
+
   function addMsg(text, type) {
     const row = document.createElement('div');
     row.className = 'chat-msg ' + type;
@@ -912,11 +1016,19 @@ if(certModal)certModal.addEventListener('click',function(e){if(e.target===this)w
     av.textContent = type === 'bot' ? '🤖' : '👤';
     const bubble = document.createElement('div');
     bubble.className = 'msg-bubble';
-    bubble.textContent = text;
+    if (text === '📄 __RESUME_CARD__') {
+      bubble.innerHTML =
+        '<div style="font-size:0.85rem;font-weight:600;color:#e8edf7;margin-bottom:10px;">📄 Ayush\'s Resume</div>' +
+        '<div style="font-size:0.75rem;color:#8a96b0;margin-bottom:12px;">Data Analyst · Power BI · Excel · SQL</div>' +
+        '<a href="resume/Ayush_Singh_Resume.pdf" download style="display:flex;align-items:center;justify-content:center;gap:8px;background:#00d4ff;color:#050a15;font-weight:700;font-size:0.82rem;padding:10px 16px;border-radius:8px;text-decoration:none;transition:all 0.3s ease;">⬇️ Download Resume PDF</a>';
+    } else {
+      bubble.textContent = text;
+    }
     row.appendChild(av);
     row.appendChild(bubble);
     msgs.appendChild(row);
     msgs.scrollTop = msgs.scrollHeight;
+    if (type === 'bot') addQuickReplies();
   }
 
   function showTyping() {
@@ -940,10 +1052,37 @@ if(certModal)certModal.addEventListener('click',function(e){if(e.target===this)w
     if (t) t.remove();
   }
 
+  function updateHistory(q) {
+    chatHistory.unshift(q);
+    if (chatHistory.length > 3) chatHistory.pop();
+    let histBox = document.getElementById('chat-history-box');
+    if (chatHistory.length === 0) return;
+    if (!histBox) {
+      histBox = document.createElement('div');
+      histBox.id = 'chat-history-box';
+      histBox.style.cssText = 'padding:6px 12px;background:rgba(0,0,0,0.15);border-top:1px solid rgba(255,255,255,0.04);';
+      const label = document.createElement('div');
+      label.style.cssText = 'font-family:"JetBrains Mono",monospace;font-size:0.6rem;color:#556070;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:5px;';
+      label.textContent = 'Recent';
+      histBox.appendChild(label);
+      const histList = document.createElement('div');
+      histList.id = 'chat-history-list';
+      histBox.appendChild(histList);
+      document.getElementById('chat-suggestions').before(histBox);
+    }
+    const histList = document.getElementById('chat-history-list');
+    histList.innerHTML = chatHistory.map(function(h) {
+      return '<div style="font-size:0.68rem;color:#8a96b0;font-family:\'JetBrains Mono\',monospace;padding:2px 0;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" onclick="document.getElementById(\'chat-input\').value=\'' + h.replace(/'/g, '') + '\'">' +
+        '↩ ' + h +
+      '</div>';
+    }).join('');
+  }
+
   function sendMessage(text) {
     const q = text || input.value.trim();
     if (!q) return;
     input.value = '';
+    updateHistory(q);
     addMsg(q, 'user');
     showTyping();
     const delay = 600 + Math.random() * 600;
@@ -988,5 +1127,105 @@ if(certModal)certModal.addEventListener('click',function(e){if(e.target===this)w
   input.addEventListener('keydown', function(e) { if (e.key === 'Enter') sendMessage(); });
 
 })();
+
+/* ====== PROJECT DEEP DIVE MODAL ====== */
+const modalData = [
+  { num:'01', domain:'Streaming · Content Strategy', title:'Netflix Content Strategy Dashboard', tools:['Power BI','DAX','Power Query','RLS','Bookmarks','What-If Parameters'], metrics:[{val:'8,800+',lbl:'Titles Analyzed'},{val:'190+',lbl:'Countries'},{val:'23+',lbl:'DAX Measures'},{val:'5',lbl:'Dashboard Pages'}], highlights:['🎬 69.6% Movies vs 30.4% TV Shows','🔄 Only 26.93% catalog qualifies as Fresh content','🌍 US accounts for 43% of all compliance-flagged titles','💡 What-If investment simulator built for CFO','🔐 Row-Level Security for US, India, UK teams','📊 Custom Netflix dark theme with JSON branding'], insight:'Production-grade 5-page Power BI dashboard designed for VP Content, Head of Acquisitions, and CFO personas. Used time intelligence, drill-through, bookmarks, and custom tooltips across all 5 pages.', github:'https://lnkd.in/e-ekidNT' },
+  { num:'02', domain:'Retail · Grocery', title:'Blinkit Grocery Sales Dashboard', tools:['Power BI','DAX','Power Query','KPI Cards','Outlet Analysis'], metrics:[{val:'~8,523',lbl:'Rows Processed'},{val:'2011–22',lbl:'Date Range'},{val:'Tier 3',lbl:'Top Location'},{val:'4',lbl:'KPIs Built'}], highlights:['🏪 Tier 3 locations = highest overall sales — counter-intuitive finding','🥦 Fruits & Vegetables = top revenue driver across all categories','⚠️ High-selling items flagged as stockout risks','📊 Item visibility vs sales correlation analysis built'], insight:'Comprehensive Power BI dashboard analyzing BlinkIT grocery sales across outlet types, geographic tiers, and product categories — enabling data-driven inventory and expansion decisions.', github:'https://lnkd.in/gBXQkw5b' },
+  { num:'03', domain:'FMCG · Distribution', title:'National Distributor Sales Dashboard', tools:['Advanced Excel','Power Query','PivotTables','PivotCharts','GETPIVOTDATA','Slicers'], metrics:[{val:'100K+',lbl:'Records'},{val:'36',lbl:'Months of Data'},{val:'8',lbl:'PivotTables'},{val:'100%',lbl:'Reporting Automated'}], highlights:['⚡ 100% of manual monthly reporting eliminated completely','📈 Promotional transactions validated to generate higher revenue per unit','🥛 Yogurt & Milk identified as majority revenue driver','🔄 ~150 lines of Power Query M code written','🔗 8 cross-connected slicers — one filter updates entire dashboard','📊 7 PivotCharts covering all dimensions'], insight:'Enterprise-grade Excel dashboard consolidating 3 years of transactional data. Auto-refresh capability across 8 PivotTables with weighted average KPIs using GETPIVOTDATA.', github:'https://lnkd.in/gbcumXRA' },
+  { num:'04', domain:'Food Delivery · E-commerce', title:'Swiggy Sales & Market Analysis', tools:['Advanced Excel','Pivot Tables','Time-Series Analysis','Geo Segmentation','Timeline Controls'], metrics:[{val:'197,430',lbl:'Orders Analyzed'},{val:'₹53.01M',lbl:'Revenue Tracked'},{val:'₹268.51',lbl:'Avg Order Value'},{val:'32%',lbl:'Q3 Decline Found'}], highlights:['🚨 32% Q3 revenue decline identified and flagged for leadership','🏙️ Lucknow ranked #2 nationally — Tier-2 beating major metros','🥗 Vegetarian = 65% of total revenue across all cities','📅 Friday–Sunday identified as consistent peak ordering days','🎯 3 strategic recommendations delivered with data backing'], insight:'Dynamic KPI dashboard analyzing 197,430 Swiggy orders across Q1–Q3. Performed time-series, geographic, and categorical segmentation to identify a critical seasonal revenue risk.', github:'https://lnkd.in/g8wm3vmA' },
+  { num:'05', domain:'E-commerce · Multi-Channel Retail', title:'Vrinda Store Annual Sales Report 2022', tools:['Advanced Excel','Pivot Tables','Demographic Analysis','Channel Analysis'], metrics:[{val:'12',lbl:'Months of Data'},{val:'8',lbl:'Business Questions'},{val:'92%',lbl:'Delivery Rate'},{val:'80%',lbl:'Top 3 Channel Share'}], highlights:['👩 Women = 65% of all purchases across all channels','🛒 Amazon + Flipkart + Myntra = 80% of total sales combined','📍 Maharashtra, Karnataka, UP = 35% of total revenue','🎯 Peak period: February–March identified for promo planning','📦 92% delivery success rate across all fulfillment types'], insight:'12-month comprehensive sales analysis answering 8 critical business questions. Delivered a precise 2023 marketing strategy: target women aged 30–49 in top 3 states via top 3 channels.', github:'https://lnkd.in/g9viZyqC' },
+  { num:'06', domain:'Retail · SQL Analytics', title:'Retail Sales Analysis — SQL Project', tools:['SQL','MySQL','Window Functions','CTEs','Subqueries','EDA'], metrics:[{val:'10',lbl:'Business Queries'},{val:'11',lbl:'Columns Cleaned'},{val:'RANK()',lbl:'Window Function'},{val:'Full EDA',lbl:'Pipeline Built'}], highlights:['🏆 Best-selling month per year found using RANK() Window Function','👥 Top 5 customers by revenue — ORDER BY + LIMIT query','⏰ Shift-level analysis — CASE WHEN + CTE logic','🧹 Full EDA + data cleaning pipeline built in pure SQL','📊 10 business questions answered without any BI tool'], insight:'End-to-end MySQL project — from CREATE DATABASE and data cleaning through to 10 business questions. Demonstrates SQL-first analytical thinking with window functions, CTEs, and subqueries.', github:'https://lnkd.in/gXbrYqPA' },
+  { num:'07', domain:'Banking · Credit Risk · Financial Services', title:'Credit Risk & Loan Default Analysis', tools:['Power BI','Advanced Excel','SQL','DAX','Statistical Analysis','Power Query'], metrics:[{val:'32,407',lbl:'Loan Records'},{val:'21.87%',lbl:'Default Rate Found'},{val:'15',lbl:'DAX Measures'},{val:'4-Phase',lbl:'Pipeline'}], highlights:['🏦 Grade G loans default at 98.44% vs Grade A at only 9.96%','📊 Loan-to-income ratio = #1 statistical predictor (Pearson +0.38)','💸 ₹77M at-risk portfolio quantified and delivered to CFO','🎚️ What-If LTI simulator: above 30% threshold → 61.93% default rate','🌳 Decomposition Tree built for interactive root cause analysis','📋 12 stakeholder questions answered across CRO, CFO, Loan Committee'], insight:'Full end-to-end capstone: Raw Data → Excel Cleaning → MySQL Analysis → Statistical Findings → 5-page Power BI Dashboard. Custom Credit Sentinel dark finance theme with gold titles and risk color system.', github:'https://lnkd.in/gQ6Peu7V' }
+];
+
+window.openProjectModal = function(idx) {
+  const d = modalData[idx];
+  if (!d) return;
+  document.getElementById('modalProjectNum').textContent = 'Project ' + d.num + ' — ' + d.domain;
+  const toolsHTML = d.tools.map(function(t) { return '<span class="modal-tool">' + t + '</span>'; }).join('');
+  const metricsHTML = d.metrics.map(function(m) { return '<div class="modal-metric"><span class="modal-mval">' + m.val + '</span><span class="modal-mlbl">' + m.lbl + '</span></div>'; }).join('');
+  const highlightsHTML = d.highlights.map(function(h) { return '<div class="modal-highlight">' + h + '</div>'; }).join('');
+  document.getElementById('modalContent').innerHTML =
+    '<div class="modal-domain">' + d.domain + '</div>' +
+    '<div class="modal-title">' + d.title + '</div>' +
+    '<div class="modal-tools">' + toolsHTML + '</div>' +
+    '<div class="modal-section-title">Key Metrics</div>' +
+    '<div class="modal-metrics">' + metricsHTML + '</div>' +
+    '<div class="modal-section-title">Key Findings</div>' +
+    '<div class="modal-highlights">' + highlightsHTML + '</div>' +
+    '<div class="modal-section-title">Project Summary</div>' +
+    '<div class="modal-insight">' + d.insight + '</div>' +
+    '<a href="' + d.github + '" target="_blank" class="modal-github">View Full Project on GitHub →</a>';
+  const modal = document.getElementById('projectModal');
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+};
+
+window.closeProjectModal = function() {
+  document.getElementById('projectModal').style.display = 'none';
+  document.body.style.overflow = '';
+};
+
+document.getElementById('projectModal').addEventListener('click', function(e) {
+  if (e.target === this) window.closeProjectModal();
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') window.closeProjectModal();
+});
+
+/* ====== VISITOR COUNTER ====== */
+(function() {
+  const el = document.getElementById('visitorCount');
+  if (!el) return;
+  const base = 1247;
+  let stored = parseInt(localStorage.getItem('ayush_visits') || '0');
+  stored++;
+  localStorage.setItem('ayush_visits', stored);
+  const total = base + stored;
+  let cur = 0;
+  const target = total;
+  const inc = target / 80;
+  new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        const t = setInterval(function() {
+          cur += inc;
+          if (cur >= target) { cur = target; clearInterval(t); }
+          el.textContent = Math.floor(cur).toLocaleString();
+        }, 20);
+      }
+    });
+  }, { threshold: 0.5 }).observe(el);
+})();
+
+/* ====== DARK/LIGHT MODE TOGGLE ====== */
+(function() {
+  const btn = document.getElementById('themeToggle');
+  if (!btn) return;
+  const saved = localStorage.getItem('ayush_theme');
+  if (saved === 'light') { document.body.classList.add('light-mode'); btn.textContent = '☀️'; }
+  btn.addEventListener('click', function() {
+    document.body.classList.toggle('light-mode');
+    const isLight = document.body.classList.contains('light-mode');
+    btn.textContent = isLight ? '☀️' : '🌙';
+    localStorage.setItem('ayush_theme', isLight ? 'light' : 'dark');
+  });
+})();
+
+/* ====== COPY EMAIL BUTTON ====== */
+window.copyEmail = function() {
+  navigator.clipboard.writeText('as764994@gmail.com').then(function() {
+    const btn = document.getElementById('copyEmailBtn');
+    if (!btn) return;
+    btn.textContent = '✅ Copied!';
+    btn.classList.add('copied');
+    setTimeout(function() {
+      btn.textContent = '📋 Copy';
+      btn.classList.remove('copied');
+    }, 2500);
+  });
+};
 
 }); // END window.load
