@@ -2094,24 +2094,34 @@ body.light-mode .card-back { background: linear-gradient(135deg,#e8f0ff,#ddeeff)
 .project-card { visibility: hidden; }
 
 /* ====== MOBILE BANNER FIX ====== */
-/* Desktop pe mobile span hide karo */
-.avail-mobile { display: none; }
+/* Hide mobile span by default (desktop shows desktop span) */
+.avail-mobile { display: none !important; }
+.avail-desktop { display: inline !important; }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   #availability-banner {
-    padding: 6px 40px 6px 12px;
+    padding: 0 40px 0 12px;
+    height: 33px;
     min-height: 33px;
     max-height: 33px;
     overflow: hidden;
+    white-space: nowrap;
+    display: flex !important;
+    align-items: center;
+    gap: 6px;
   }
-  /* Desktop span hide, mobile span show */
-  .avail-desktop { display: none; }
+  /* Hide the long desktop text entirely on mobile */
+  .avail-desktop { display: none !important; }
+  /* Show only the short mobile text */
   .avail-mobile {
-    display: inline;
+    display: inline !important;
     font-size: 0.68rem;
     color: #00ff88;
     font-family: var(--font-mono);
     letter-spacing: 0.04em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-  .avail-dot { flex-shrink: 0; }
+  .avail-dot { display: none !important; } /* emoji in text acts as dot */
 }
