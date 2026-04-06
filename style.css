@@ -1711,8 +1711,12 @@ img {
 
 @media (max-width: 768px) {
   .ticker-inner {
+    /* width:max-content forces the browser to measure the true content width,
+       not the narrower mobile container width. Without this, translateX(-50%)
+       is calculated against ~390px (viewport) instead of the full text width,
+       causing it to restart after just 3 items ("Machine Lea"). */
     width: max-content;
-    animation-duration: 18s;
+    animation-duration: 18s; /* smooth pace on mobile */
   }
 }
 
@@ -2125,4 +2129,80 @@ body.light-mode .card-back { background: linear-gradient(135deg,#e8f0ff,#ddeeff)
     text-overflow: ellipsis;
   }
   .avail-dot { display: none !important; } /* emoji in text acts as dot */
+}
+
+/* ====== LIGHT MODE — PROJECT MODAL ====== */
+/* Modal box background (hardcoded #0d1427 in HTML, needs !important) */
+body.light-mode #projectModalBox {
+  background: #ffffff !important;
+  border-color: rgba(0, 100, 200, 0.2) !important;
+}
+
+/* Sticky modal header bar */
+body.light-mode #projectModalBox > div:first-child {
+  background: #ffffff !important;
+  border-bottom-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Project number label in header */
+body.light-mode #modalProjectNum {
+  color: #0055bb !important;
+}
+
+/* Close button */
+body.light-mode #projectModalBox button {
+  background: rgba(0, 0, 0, 0.06) !important;
+  color: #3a4868 !important;
+}
+
+/* Domain tag above title */
+body.light-mode .modal-domain {
+  color: #5a6888 !important;
+}
+
+/* Main project title */
+body.light-mode .modal-title {
+  color: #060c1c !important;
+}
+
+/* Tool/tech tag pills */
+body.light-mode .modal-tool {
+  background: rgba(0, 100, 200, 0.08) !important;
+  border-color: rgba(0, 100, 200, 0.25) !important;
+  color: #0055bb !important;
+}
+
+/* KEY METRICS / KEY FINDINGS section headings */
+body.light-mode .modal-section-title {
+  color: #0055bb !important;
+}
+
+/* Metric cards */
+body.light-mode .modal-metric {
+  background: rgba(0, 100, 200, 0.05) !important;
+  border-color: rgba(0, 100, 200, 0.15) !important;
+}
+
+/* Metric value (big number) */
+body.light-mode .modal-mval {
+  color: #0055bb !important;
+}
+
+/* Metric label below number */
+body.light-mode .modal-mlbl {
+  color: #5a6888 !important;
+}
+
+/* Key finding rows — was rgba(255,255,255,0.03) = invisible on white */
+body.light-mode .modal-highlight {
+  background: rgba(0, 0, 0, 0.03) !important;
+  color: #1a2340 !important;
+  border-left-color: #0066cc !important;
+}
+
+/* Project summary box */
+body.light-mode .modal-insight {
+  background: rgba(0, 100, 200, 0.05) !important;
+  border-color: rgba(0, 100, 200, 0.18) !important;
+  color: #1a2340 !important;
 }
