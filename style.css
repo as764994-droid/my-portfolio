@@ -1709,9 +1709,10 @@ img {
   100% { transform: translateX(-50%); }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .ticker-inner {
-    animation-duration: 10s;
+    width: max-content;
+    animation-duration: 18s;
   }
 }
 
