@@ -2103,8 +2103,11 @@ body.light-mode .card-back { background: linear-gradient(135deg,#e8f0ff,#ddeeff)
   }
   .avail-text {
     font-size: 0.65rem;
-    max-width: 200px;
+    max-width: 260px;
     letter-spacing: 0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .avail-dot {
     flex-shrink: 0;
