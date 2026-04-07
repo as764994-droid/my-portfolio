@@ -256,9 +256,6 @@
       <h2 class="section-title centered reveal">End-to-End Analytics Projects</h2>
       <p class="section-sub reveal">7 real-world projects · 6 industries · 3 tools</p>
 
-      <!-- ✅ FIX #1: ALL 7 project cards are now INSIDE .projects-grid.
-           Previously Project 7 was placed AFTER the closing </div> of this grid,
-           making it render full-width outside the layout and escape the filter bar. -->
       <div class="projects-grid">
 
         <!-- PROJECT 1 — Netflix -->
@@ -295,7 +292,6 @@
             <span class="feature-tag">Bookmarks</span>
           </div>
           <div class="project-footer">
-            <!-- ✅ FIX #11: Direct GitHub URL instead of lnkd.in shortlink -->
             <a href="https://github.com/as764994-droid/netflix-content-strategy-dashboard-powerbi" target="_blank" class="project-link">View on GitHub →</a>
           </div>
         </div>
@@ -469,7 +465,6 @@
           </div>
         </div>
 
-        <!-- ✅ FIX #1: PROJECT 7 is now INSIDE .projects-grid -->
         <!-- PROJECT 7 — Credit Risk Capstone -->
         <div class="project-card reveal" data-domain="Power BI">
           <div class="project-header">
@@ -584,6 +579,25 @@
             </div>
             <span class="cert-view">View ↗</span>
           </div>
+
+          <!-- ✅ ADDED: HackerRank SQL Certifications -->
+          <div class="cert-card reveal delay-5" onclick="window.open('https://www.hackerrank.com/certificates/1a0193fde9bf','_blank')" style="cursor:pointer">
+            <div class="cert-icon">🗄️</div>
+            <div class="cert-details">
+              <div class="cert-name">SQL (Basic) Certificate</div>
+              <div class="cert-body">HackerRank · Verified ✓</div>
+            </div>
+            <span class="cert-view">Verify ↗</span>
+          </div>
+          <div class="cert-card reveal delay-6" onclick="window.open('https://www.hackerrank.com/certificates/48b9a8554d63','_blank')" style="cursor:pointer">
+            <div class="cert-icon">🗄️</div>
+            <div class="cert-details">
+              <div class="cert-name">SQL (Intermediate) Certificate</div>
+              <div class="cert-body">HackerRank · Verified ✓</div>
+            </div>
+            <span class="cert-view">Verify ↗</span>
+          </div>
+
         </div>
 
         <!-- CERTIFICATE MODAL -->
@@ -731,7 +745,6 @@
   <!-- ===== CONTACT ===== -->
   <section id="contact">
     <div class="container">
-      <!-- ✅ FIX #3: Section number corrected from 05 to 07 -->
       <div class="section-label reveal">07 — Contact</div>
       <h2 class="section-title centered reveal">Let's Work Together</h2>
       <p class="section-sub reveal">Open to Data Analyst &amp; Business Analyst roles. Immediate joiner.</p>
@@ -764,7 +777,6 @@
     <div class="footer-inner">
       <div class="footer-logo">AS<span class="dot">.</span></div>
       <p class="footer-text">Ayush Singh · Data Analyst · Lucknow, India</p>
-      <!-- ✅ FIX #14: Year updated to 2026 and made dynamic via JS -->
       <p class="footer-copy">Built with HTML · CSS · JavaScript &nbsp;|&nbsp; © <span id="footerYear">2026</span> Ayush Singh</p>
       <p class="visitor-counter">👁 <span id="visitorCount">0</span> people have viewed this portfolio</p>
     </div>
