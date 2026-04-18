@@ -601,7 +601,7 @@ if(certModal)certModal.addEventListener('click',function(e){if(e.target===this)w
     },
     strengths: "Ayush's biggest strengths are: (1) Business thinking — he doesn't just build charts, he identifies actionable insights like the 32% Q3 Swiggy decline, counter-intuitive Tier 3 dominance in Blinkit, and a ₹77M at-risk portfolio in his Credit Risk capstone. (2) Technical depth — 23+ DAX measures, Power Query automation, SQL window functions, and Pearson correlation statistical analysis. (3) Stakeholder focus — his dashboards are designed for CRO, CFO, and VP-level personas, not just data teams. (4) Speed — immediate joiner, 7 projects already built.",
     whyhire: "Ayush brings 3 things most freshers don't: real project depth (not toy datasets), business insight (not just charts), and immediate availability. His projects have tracked ₹311M+ in revenue, analyzed 100K+ records, eliminated manual reporting entirely, and quantified ₹77M in credit portfolio risk. He thinks like a business analyst, not just a data technician.",
-    certifications: "Power BI Workshop (OfficeMaster, Nov 2025), Advanced Excel Certification (OneRoadmap — verified), AI Tools Workshop (be10x, Nov 2025), Data Analyst Certification (OneRoadmap — verified), Data Analytics Completion Certificate (Skillsetmaster, Jan 2026).",
+    certifications: "Power BI Workshop (OfficeMaster, Nov 2025), Advanced Excel Certification (OneRoadmap — verified), AI Tools Workshop (be10x, Nov 2025), Data Analyst Certification (OneRoadmap — verified), Data Analytics Completion Certificate (Skillsetmaster, Jan 2026), SQL (Basic) Certificate (HackerRank — verified), SQL (Intermediate) Certificate (HackerRank — verified).",
     salary: "Ayush is open to discussing compensation based on the role and company. He is primarily focused on finding the right opportunity to contribute and grow.",
     notice: "Immediate joiner. Zero notice period. Can start right away.",
     domain: "Ayush has worked across 6 industries: Streaming (Netflix), Grocery Retail (Blinkit), FMCG Distribution, Food Delivery (Swiggy), E-commerce Retail (Vrinda Store), SQL Retail Analytics, and Banking & Financial Services (Credit Risk & Loan Default Analysis).",
@@ -609,6 +609,9 @@ if(certModal)certModal.addEventListener('click',function(e){if(e.target===this)w
 
   function getResponse(input) {
     var q = input.toLowerCase().trim();
+
+    if (/who is ayush|tell me about ayush|about ayush|about him|who is he|introduce|tell me about yourself|describe ayush/.test(q))
+      return '👋 ' + kb.about + '\n\n🛠️ Tools: Power BI · Advanced Excel · SQL · DAX\n📁 Projects: 7 end-to-end across 6 industries\n💰 Revenue Tracked: ₹311M+\n📍 Location: Lucknow · Open to Remote & Relocation\n⚡ Availability: Immediate Joiner\n\n📧 ' + kb.email + '\n💼 ' + kb.linkedin;
 
     if (/hiring|we.*looking|open.*position|job opening|vacancy|team.*need|recruiting|talent|candidate|interview|onboard|join.*team/.test(q))
       return '👔 Sounds like you\'re hiring! Here\'s Ayush\'s quick recruiter summary:\n\n🎯 Role: Data Analyst / Business Analyst\n📍 Location: Lucknow — open to Remote & Relocation\n⚡ Availability: Immediate Joiner — Zero notice period\n📊 Projects: 7 end-to-end across 6 industries\n💰 Revenue Tracked: ₹311M+\n🛠️ Tools: Power BI · Advanced Excel · SQL · DAX\n\n📧 Reach him at: as764994@gmail.com\n💼 LinkedIn: linkedin.com/in/ayush-singh-finance\n\nHe\'s ready to contribute from Day 1! 🚀';
@@ -647,6 +650,7 @@ if(certModal)certModal.addEventListener('click',function(e){if(e.target===this)w
 
     if (/power bi|powerbi/.test(q)) return '📊 ' + kb.tools.powerbi;
     if (/excel|pivot|spreadsheet/.test(q)) return '📗 ' + kb.tools.excel;
+    if (/hackerrank/.test(q)) return '🗄️ Ayush has earned 2 verified HackerRank SQL certifications:\n\n✅ SQL (Basic) Certificate — HackerRank\n✅ SQL (Intermediate) Certificate — HackerRank\n\nBoth are verifiable directly on HackerRank. He also built a complete end-to-end SQL retail analytics project using MySQL with window functions, CTEs, and subqueries!';
     if (/sql|mysql|database|query|queries/.test(q)) return '🗄️ ' + kb.tools.sql;
     if (/python/.test(q)) return '🐍 ' + kb.tools.python;
     if (/dax|power query|m code/.test(q)) return '⚡ ' + kb.tools.dax;
@@ -679,8 +683,8 @@ if(certModal)certModal.addEventListener('click',function(e){if(e.target===this)w
     if (/experience|years|how long|how many/.test(q))
       return '📊 ' + kb.experience + '\n\nWhile Ayush is a fresher in terms of formal employment, his project depth rivals 1–2 years of real work experience.';
 
-    if (/certif|certificat/.test(q))
-      return '📜 ' + kb.certifications + '\n\nAll certificates are viewable directly on the portfolio — click any certificate card to verify!';
+    if (/certif|certificat|hackerrank|sql cert/.test(q))
+      return '📜 Ayush has 7 verified certifications:\n\n📊 Power BI Workshop — OfficeMaster (Nov 2025)\n📗 Advanced Excel Certification — OneRoadmap ✓ Verified\n🤖 AI Tools Workshop — be10x (Nov 2025)\n📈 Data Analyst Certification — OneRoadmap ✓ Verified\n🎓 Data Analytics Completion — Skillsetmaster (Jan 2026)\n🗄️ SQL (Basic) Certificate — HackerRank ✓ Verified\n🗄️ SQL (Intermediate) Certificate — HackerRank ✓ Verified\n\nAll certificates are clickable and viewable directly on the portfolio!';
 
     if (/strength|strong|good at|best at|special/.test(q)) return '💪 ' + kb.strengths;
 
@@ -693,6 +697,9 @@ if(certModal)certModal.addEventListener('click',function(e){if(e.target===this)w
 
     if (/contact|email|reach|hire|connect|linkedin|github/.test(q))
       return '📬 You can reach Ayush directly:\n\n📧 Email: ' + kb.email + '\n💼 LinkedIn: ' + kb.linkedin + '\n🐙 GitHub: ' + kb.github + '\n\nHe responds quickly and is actively looking for opportunities!';
+
+    if (/who is ayush|tell me about ayush|about ayush|about him|who is he|introduce|tell me about yourself|describe ayush/.test(q))
+      return '👋 ' + kb.about + '\n\n🛠️ Tools: Power BI · Advanced Excel · SQL · DAX\n📁 Projects: 7 end-to-end across 6 industries\n💰 Revenue Tracked: ₹311M+\n📍 Location: Lucknow · Open to Remote & Relocation\n⚡ Availability: Immediate Joiner\n\n📧 ' + kb.email + '\n💼 ' + kb.linkedin;
 
     if (/thank|thanks|great|awesome|nice|good|helpful|perfect/.test(q))
       return 'You\'re welcome! 😊 Feel free to ask anything else about Ayush. You can also scroll through the portfolio to see his live projects and certifications!';
