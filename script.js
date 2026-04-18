@@ -297,17 +297,29 @@ if (heroStats) {
   if (!aboutText) return;
   var wrap = document.createElement('div');
   wrap.style.cssText='margin-top:32px;';
-  wrap.innerHTML='<p style="font-family:JetBrains Mono,monospace;font-size:.78rem;color:#00d4ff;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;">Projects by Domain</p><div id="miniChart" style="display:flex;align-items:flex-end;gap:20px;height:120px;background:rgba(0,212,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:12px 20px 10px"><div class="bgrp" data-h="75"><div class="bfill" style="background:#00d4ff;box-shadow:0 0 12px rgba(0,212,255,.5)"></div><div style="font-size:.72rem;color:#8a96b0;font-family:JetBrains Mono,monospace;margin-top:6px">Power BI</div><div style="font-size:.8rem;font-weight:700;color:#e8edf7">3</div></div><div class="bgrp" data-h="100"><div class="bfill" style="background:#33cc66;box-shadow:0 0 12px rgba(51,204,102,.5)"></div><div style="font-size:.72rem;color:#8a96b0;font-family:JetBrains Mono,monospace;margin-top:6px">Excel</div><div style="font-size:.8rem;font-weight:700;color:#e8edf7">4</div></div><div class="bgrp" data-h="50"><div class="bfill" style="background:#ff9933;box-shadow:0 0 12px rgba(255,153,51,.5)"></div><div style="font-size:.72rem;color:#8a96b0;font-family:JetBrains Mono,monospace;margin-top:6px">SQL</div><div style="font-size:.8rem;font-weight:700;color:#e8edf7">2</div></div></div>';
+  var domainItems = [
+    { label:'Power BI', count:3, color:'#00d4ff', shadow:'rgba(0,212,255,.5)' },
+    { label:'Excel',    count:4, color:'#33cc66', shadow:'rgba(51,204,102,.5)' },
+    { label:'SQL',      count:2, color:'#ff9933', shadow:'rgba(255,153,51,.5)' }
+  ];
+  var maxCount = Math.max.apply(null, domainItems.map(function(d){ return d.count; }));
+  var barsHTML = domainItems.map(function(d){
+    var pct = Math.round((d.count / maxCount) * 100);
+    return '<div class="bgrp" data-h="' + pct + '"><div class="bfill" style="background:' + d.color + ';box-shadow:0 0 12px ' + d.shadow + '"></div><div style="font-size:.72rem;color:#8a96b0;font-family:JetBrains Mono,monospace;margin-top:6px">' + d.label + '</div><div style="font-size:.8rem;font-weight:700;color:#e8edf7">' + d.count + '</div></div>';
+  }).join('');
+  wrap.innerHTML='<p style="font-family:JetBrains Mono,monospace;font-size:.78rem;color:#00d4ff;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;">Projects by Domain</p><div id="miniChart" style="display:flex;align-items:flex-end;gap:20px;height:260px;background:rgba(0,212,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:16px 40px 10px;overflow:hidden">' + barsHTML + '</div>';
   aboutText.appendChild(wrap);
   var bStyle=document.createElement('style');
-  bStyle.textContent='.bgrp{display:flex;flex-direction:column;align-items:center;flex:1;height:100%;justify-content:flex-end;text-align:center}.bfill{width:100%;max-width:56px;height:0;border-radius:4px 4px 0 0;transition:height 1.3s cubic-bezier(.4,0,.2,1)}';
+  bStyle.textContent='.bgrp{display:flex;flex-direction:column;align-items:center;flex:1;justify-content:flex-end;text-align:center}.bfill{width:60px;height:0px;border-radius:4px 4px 0 0;transition:height 1.3s cubic-bezier(.4,0,.2,1)}';
   document.head.appendChild(bStyle);
   new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
       if(entry.isIntersecting){
+        var heights={100:180,75:135,50:90};
         entry.target.querySelectorAll('.bgrp').forEach(function(g){
-          var h=g.getAttribute('data-h');
-          setTimeout(function(){g.querySelector('.bfill').style.height=h+'%';},400);
+          var h=parseInt(g.getAttribute('data-h'));
+          var px=heights[h]||90;
+          setTimeout(function(){g.querySelector('.bfill').style.height=px+'px';},400);
         });
       }
     });
@@ -966,29 +978,7 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') window.closeProjectModal();
 });
 
-/* ====== VISITOR COUNTER ====== */
-// ✅ FIX #8: Counter now shows a realistic base + small session variance
-// rather than per-browser localStorage counting which made it look like nobody visits
-(function() {
-  var el = document.getElementById('visitorCount');
-  if (!el) return;
-  var base = 2847; // realistic-looking base count
-  var sessionVariance = Math.floor(Math.random() * 30) + 5; // random 5-35
-  var total = base + sessionVariance;
-  var cur = 0;
-  var inc = total / 80;
-  new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        var t = setInterval(function() {
-          cur += inc;
-          if (cur >= total) { cur = total; clearInterval(t); }
-          el.textContent = Math.floor(cur).toLocaleString();
-        }, 20);
-      }
-    });
-  }, { threshold: 0.5 }).observe(el);
-})();
+
 
 /* ====== DARK/LIGHT MODE TOGGLE ====== */
 (function() {
